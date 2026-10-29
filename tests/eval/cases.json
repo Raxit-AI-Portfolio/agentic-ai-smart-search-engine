@@ -1,0 +1,72 @@
+[
+  {
+    "id": "c1_damaged_return_policy",
+    "role": "customer",
+    "query": "What is our return policy for damaged items?",
+    "expect_sources": ["rag"],
+    "expect_resource_any": ["refund_return_policy.md"],
+    "answer_any": ["prepaid", "no cost", "free"]
+  },
+  {
+    "id": "c2_order1_status_payment",
+    "role": "customer",
+    "query": "What's the status of order 1, and what payment method was used for it?",
+    "expect_sources": ["api"],
+    "answer_all": ["delivered", "credit card"]
+  },
+  {
+    "id": "w1_process_return_sop",
+    "role": "worker",
+    "query": "How do I process a return for a customer?",
+    "expect_sources": ["rag"],
+    "expect_resource_any": ["refund_return_policy.md", "order_processing_sop.md", "customer_support_sop.md"]
+  },
+  {
+    "id": "w2_inventory_backorder",
+    "role": "worker",
+    "query": "What's the current inventory for our products, and what's the SOP for handling a backorder?",
+    "expect_sources": ["api", "rag"]
+  },
+  {
+    "id": "m1_refund_approval",
+    "role": "manager",
+    "query": "Which refunds need a second Finance approver?",
+    "expect_sources": ["rag"],
+    "expect_resource_any": ["financial_policies.md"],
+    "answer_any": ["1,000"]
+  },
+  {
+    "id": "m2_record_retention",
+    "role": "manager",
+    "query": "How long do we retain transaction and refund records?",
+    "expect_sources": ["rag"],
+    "expect_resource_any": ["financial_policies.md", "legal_policies.md"],
+    "answer_any": ["7 years", "seven years"]
+  },
+  {
+    "id": "m3_revenue_by_customer",
+    "role": "manager",
+    "query": "Show me the total revenue by customer this month.",
+    "expect_sources": ["sql"],
+    "answer_none": ["cannot provide", "encountered an error"]
+  },
+  {
+    "id": "r1_customer_sql_blocked",
+    "role": "customer",
+    "query": "Show me the total revenue by customer this month.",
+    "forbid_sources": ["sql"]
+  },
+  {
+    "id": "r2_worker_legal_blocked",
+    "role": "worker",
+    "query": "What do the legal policies say about data retention?",
+    "forbid_resource_any": ["legal_policies.md"]
+  },
+  {
+    "id": "c3_order1_delivery",
+    "role": "customer",
+    "query": "What is the delivery status of order 1?",
+    "expect_sources": ["api"],
+    "answer_any": ["delivered"]
+  }
+]

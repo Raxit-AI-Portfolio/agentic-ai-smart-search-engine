@@ -1,0 +1,349 @@
+{
+  "summary": {
+    "runs_per_case": 3,
+    "cases": 10,
+    "pass_rate_by_check": {
+      "routing": 1.0,
+      "citation": 1.0,
+      "fact": 0.8,
+      "no_failure_phrase": 0.333,
+      "rbac": 1.0
+    },
+    "rbac_leaks": 0,
+    "latency_p50_s": 7.32,
+    "latency_p95_s": 27.36,
+    "tokens_median": 7869.0
+  },
+  "detail": [
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 6.71,
+      "total_tokens": 5144,
+      "answer": "If an item arrives damaged, defective, or different from what was ordered, you may request a return or replacement within 48 hours of delivery. This applies even to items that are normally non-returnable, such as \"Final Sale\" or \"Clearance\" items. You will need to provide photo evidence of the damage or discrepancy, which can be uploaded through the order details page. For damaged, defective, or incorrect items, eKart provides a prepaid return shipping label at no cost.",
+      "case_id": "c1_damaged_return_policy",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 4.91,
+      "total_tokens": 4852,
+      "answer": "The return policy for damaged items involves initiating the return through \"My Orders,\" selecting \"Return or Replace Item,\" and choosing \"Item defective\" as the reason. You can then select a refund to your original payment method, store credit, or a replacement item. eKart provides a prepaid return shipping label at no cost for damaged, defective, or incorrect items.",
+      "case_id": "c1_damaged_return_policy",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 4.82,
+      "total_tokens": 4862,
+      "answer": "The return policy for damaged items requires customers to initiate the return through \"My Orders,\" select \"Return or Replace Item,\" and then choose \"Item defective\" as the reason. Customers can upload photos if applicable and select a refund to their original payment method, store credit, or a replacement item. For damaged, defective, or incorrect items, eKart provides a prepaid return shipping label at no cost.",
+      "case_id": "c1_damaged_return_policy",
+      "run": 3
+    },
+    {
+      "checks": {
+        "routing": true,
+        "fact": false
+      },
+      "latency_s": 9.15,
+      "total_tokens": 6781,
+      "answer": "Order 1 has been delivered. The payment method used for order 1 was not specified.",
+      "case_id": "c2_order1_status_payment",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true,
+        "fact": false
+      },
+      "latency_s": 8.69,
+      "total_tokens": 6431,
+      "answer": "Order 1 has been delivered. The payment method used for order 1 was not specified in the results.",
+      "case_id": "c2_order1_status_payment",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true,
+        "fact": false
+      },
+      "latency_s": 8.64,
+      "total_tokens": 5958,
+      "answer": "Order 1 has been delivered. The payment method used for order 1 could not be retrieved.",
+      "case_id": "c2_order1_status_payment",
+      "run": 3
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true
+      },
+      "latency_s": 7.81,
+      "total_tokens": 7820,
+      "answer": "If an order has been shipped, it cannot be canceled and must instead be processed as a return according to the refund and return policy.",
+      "case_id": "w1_process_return_sop",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true
+      },
+      "latency_s": 5.22,
+      "total_tokens": 5028,
+      "answer": "To process a return for a customer, first confirm that the item and reason for return are eligible according to the refund and return policy. If they are eligible, you can initiate the return in the Order Management System on the customer's behalf or guide them through the self-service process. Afterward, confirm the refund method and the expected timeline for the refund as outlined in the policy. If the customer disputes the eligibility, for instance, if they are past the return window due to a claimed delivery delay, you should verify their claim against tracking data before deciding whether to make a goodwill exception within your authority level.",
+      "case_id": "w1_process_return_sop",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true
+      },
+      "latency_s": 5.42,
+      "total_tokens": 5028,
+      "answer": "To process a return for a customer, you should first confirm that the item and the reason for return are eligible according to the refund and return policy. If they are eligible, you can then initiate the return in the Order Management System on the customer's behalf, or guide them through the self-service process. Finally, confirm the refund method and the expected timeline for the refund as outlined in the policy. If the customer disputes the eligibility, for example, if they claim a delivery delay pushed them past the return window, you should verify their claim using tracking data before deciding whether to make a goodwill exception within your authority level.",
+      "case_id": "w1_process_return_sop",
+      "run": 3
+    },
+    {
+      "checks": {
+        "routing": true
+      },
+      "latency_s": 8.6,
+      "total_tokens": 14127,
+      "answer": "The current inventory for our products is as follows: Dell Inspiron 15: 25, HP Pavilion x360: 18, Lenovo ThinkPad E14: 12, Apple MacBook Air M2: 8, Samsung Galaxy S23: 30, OnePlus Nord CE 3: 40, Apple iPhone 14: 15, Xiaomi Redmi Note 12: 50, Prestige Non-Stick Tawa: 60, Milton Insulated Casserole: 45, Pigeon Induction Pressure Cooker: 35, Borosil Glass Storage Set: 55, Levi's Slim Fit Jeans: 70, Allen Solly Formal Shirt: 65, Puma Running Shoes: 40, Wildcraft Travel Backpack: 30, Tata Tea Gold 1kg: 100, Amul Butter 500g: 90, Haldiram's Namkeen Mix: 120, Nescafe Classic Coffee 200g: 80, Atomic Habits - James Clear: 50, The Alchemist - Paulo Coelho: 45, Rich Dad Poor Dad: 40, and Classmate Notebook Pack: 200.\n\nThe Standard Operating Procedure (SOP) for order processing outlines various stages from order placement to delivery. While the provided text details order statuses, cancellations, and intake procedures, it does not specifically describe the SOP for handling a backorder.",
+      "case_id": "w2_inventory_backorder",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true
+      },
+      "latency_s": 9.13,
+      "total_tokens": 14081,
+      "answer": "The current inventory includes:\n- Dell Inspiron 15: 25 units\n- HP Pavilion x360: 18 units\n- Lenovo ThinkPad E14: 12 units\n- Apple MacBook Air M2: 8 units\n- Samsung Galaxy S23: 30 units\n- OnePlus Nord CE 3: 40 units\n- Apple iPhone 14: 15 units\n- Xiaomi Redmi Note 12: 50 units\n- Prestige Non-Stick Tawa: 60 units\n- Milton Insulated Casserole: 45 units\n- Pigeon Induction Pressure Cooker: 35 units\n- Borosil Glass Storage Set: 55 units\n- Levi's Slim Fit Jeans: 70 units\n- Allen Solly Formal Shirt: 65 units\n- Puma Running Shoes: 40 units\n- Wildcraft Travel Backpack: 30 units\n- Tata Tea Gold 1kg: 100 units\n- Amul Butter 500g: 90 units\n- Haldiram's Namkeen Mix: 120 units\n- Nescafe Classic Coffee 200g: 80 units\n- Atomic Habits - James Clear: 50 units\n- The Alchemist - Paulo Coelho: 45 units\n- Rich Dad Poor Dad: 40 units\n- Classmate Notebook Pack: 200 units\n\nThe provided document outlines the order processing procedure, including order intake, payment verification, and order status definitions. However, it does not specifically detail the Standard Operating Procedure for handling backorders.",
+      "case_id": "w2_inventory_backorder",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true
+      },
+      "latency_s": 8.49,
+      "total_tokens": 14026,
+      "answer": "The current inventory for our products includes: Dell Inspiron 15 (25 units), HP Pavilion x360 (18 units), Lenovo ThinkPad E14 (12 units), Apple MacBook Air M2 (8 units), Samsung Galaxy S23 (30 units), OnePlus Nord CE 3 (40 units), Apple iPhone 14 (15 units), Xiaomi Redmi Note 12 (50 units), Prestige Non-Stick Tawa (60 units), Milton Insulated Casserole (45 units), Pigeon Induction Pressure Cooker (35 units), Borosil Glass Storage Set (55 units), Levi's Slim Fit Jeans (70 units), Allen Solly Formal Shirt (65 units), Puma Running Shoes (40 units), Wildcraft Travel Backpack (30 units), Tata Tea Gold 1kg (100 units), Amul Butter 500g (90 units), Haldiram's Namkeen Mix (120 units), Nescafe Classic Coffee 200g (80 units), Atomic Habits - James Clear (50 units), The Alchemist - Paulo Coelho (45 units), Rich Dad Poor Dad (40 units), and Classmate Notebook Pack (200 units).\n\nThe provided document outlines the standard operating procedure for order processing, including order lifecycle statuses, intake, and payment verification. However, it does not contain specific information on the SOP for handling backorders.",
+      "case_id": "w2_inventory_backorder",
+      "run": 3
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 5.22,
+      "total_tokens": 9809,
+      "answer": "Refunds that exceed $1,000 require a second Finance approver.",
+      "case_id": "m1_refund_approval",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 4.82,
+      "total_tokens": 9846,
+      "answer": "Refunds over $1,000 require a second Finance approver.",
+      "case_id": "m1_refund_approval",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 4.9,
+      "total_tokens": 9835,
+      "answer": "Refunds above $1,000 require a second Finance approver before disbursement.",
+      "case_id": "m1_refund_approval",
+      "run": 3
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 5.36,
+      "total_tokens": 11679,
+      "answer": "Transaction and refund records are retained for 7 years to comply with tax audit requirements.",
+      "case_id": "m2_record_retention",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 5.22,
+      "total_tokens": 11661,
+      "answer": "Transaction and refund records are retained for 7 years to comply with tax audit requirements.",
+      "case_id": "m2_record_retention",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true,
+        "citation": true,
+        "fact": true
+      },
+      "latency_s": 5.39,
+      "total_tokens": 11752,
+      "answer": "Transaction and refund records are retained for 7 years to comply with tax audit requirements.",
+      "case_id": "m2_record_retention",
+      "run": 3
+    },
+    {
+      "checks": {
+        "routing": true,
+        "no_failure_phrase": false
+      },
+      "latency_s": 27.36,
+      "total_tokens": 34411,
+      "answer": "I am sorry, but I encountered an error while trying to retrieve the completed orders to calculate the total revenue by customer. I cannot provide this information at this time.",
+      "case_id": "m3_revenue_by_customer",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true,
+        "no_failure_phrase": true
+      },
+      "latency_s": 22.6,
+      "total_tokens": 31071,
+      "answer": "I am sorry, I cannot fulfill this request. The available information does not contain customer revenue data.",
+      "case_id": "m3_revenue_by_customer",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true,
+        "no_failure_phrase": false
+      },
+      "latency_s": 34.0,
+      "total_tokens": 36860,
+      "answer": "I am sorry, but I encountered an error while trying to retrieve the total revenue by customer this month. Please contact Smart Search Admin for assistance.",
+      "case_id": "m3_revenue_by_customer",
+      "run": 3
+    },
+    {
+      "checks": {
+        "rbac": true
+      },
+      "latency_s": 12.44,
+      "total_tokens": 7918,
+      "answer": "I am sorry, I cannot fulfill this request. The available data does not include revenue information for the orders.",
+      "case_id": "r1_customer_sql_blocked",
+      "run": 1
+    },
+    {
+      "checks": {
+        "rbac": true
+      },
+      "latency_s": 7.67,
+      "total_tokens": 5094,
+      "answer": "I am sorry, but I encountered an error while trying to retrieve the total revenue by customer. Please contact Smart Search Admin for assistance.",
+      "case_id": "r1_customer_sql_blocked",
+      "run": 2
+    },
+    {
+      "checks": {
+        "rbac": true
+      },
+      "latency_s": 6.97,
+      "total_tokens": 4468,
+      "answer": "I am sorry, but I encountered an error while trying to retrieve the invoice and payment details necessary to calculate the total revenue by customer. Therefore, I cannot provide the total revenue by customer for this month.",
+      "case_id": "r1_customer_sql_blocked",
+      "run": 3
+    },
+    {
+      "checks": {
+        "rbac": true
+      },
+      "latency_s": 7.99,
+      "total_tokens": 7775,
+      "answer": "The provided legal policies do not contain information about data retention.",
+      "case_id": "r2_worker_legal_blocked",
+      "run": 1
+    },
+    {
+      "checks": {
+        "rbac": true
+      },
+      "latency_s": 10.3,
+      "total_tokens": 10624,
+      "answer": "The provided text mentions that legal policies are relevant for handling data protection requests and regulatory complaints, and that specific details can be found in Section 4 of the legal policies document. However, the content of these policies regarding data retention is not detailed in the given information.",
+      "case_id": "r2_worker_legal_blocked",
+      "run": 2
+    },
+    {
+      "checks": {
+        "rbac": true
+      },
+      "latency_s": 11.21,
+      "total_tokens": 13389,
+      "answer": "The provided documents do not contain specific details about data retention policies. However, they do mention that customer support teams should coordinate directly with the Legal department for any contact referencing regulatory bodies or data protection requests, and that there are legal policies available that cover data protection requests and regulatory complaint handling.",
+      "case_id": "r2_worker_legal_blocked",
+      "run": 3
+    },
+    {
+      "checks": {
+        "routing": true,
+        "fact": true
+      },
+      "latency_s": 4.76,
+      "total_tokens": 3334,
+      "answer": "Order 1 has been delivered. The delivery date was September 3, 2026.",
+      "case_id": "c3_order1_delivery",
+      "run": 1
+    },
+    {
+      "checks": {
+        "routing": true,
+        "fact": true
+      },
+      "latency_s": 4.62,
+      "total_tokens": 3332,
+      "answer": "The delivery status of order 1 is 'Delivered', and it was delivered on September 3, 2026.",
+      "case_id": "c3_order1_delivery",
+      "run": 2
+    },
+    {
+      "checks": {
+        "routing": true,
+        "fact": true
+      },
+      "latency_s": 4.71,
+      "total_tokens": 3329,
+      "answer": "Order 1 has been delivered on September 3, 2026.",
+      "case_id": "c3_order1_delivery",
+      "run": 3
+    }
+  ]
+}

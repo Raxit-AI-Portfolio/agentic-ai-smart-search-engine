@@ -1,0 +1,718 @@
+Input:
+username: bob
+role: worker
+debug mode: False
+prompt: What's the current inventory for our products, and what's the SOP for handling a backorder?
+
+Output:
+{
+  "query": "What's the current inventory for our products, and what's the SOP for handling a backorder?",
+  "role": "worker",
+  "debug": false,
+  "guardrail_passed": true,
+  "catalog": [
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/customer/{customer_id}",
+      "description": "ALL addresses for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/{customer_address_id}",
+      "description": "ONE address, given its known customer_address_id (not a customer_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/customer/{customer_id}",
+      "description": "ALL payment methods for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/{payment_method_id}",
+      "description": "ONE payment method, given its known payment_method_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /users/{customer_id}",
+      "description": "ONE customer's profile, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/by-order/{order_id}/status",
+      "description": "Delivery status and date for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/{delivery_id}",
+      "description": "ONE delivery, given its known delivery_id (not an order_id \u2014 use by-order/{order_id}/status for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/by-order/{order_id}",
+      "description": "The invoice for ONE order, given its known order_id \u2014 this is how to find an order's payment_id (invoice.payment_id), since there is no direct get-payment-by-order."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/{invoice_id}",
+      "description": "ONE invoice, given its known invoice_id (not an order_id \u2014 use by-order/{order_id} for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/by-order/{order_id}",
+      "description": "ALL product line items for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/{order_product_id}",
+      "description": "ONE order-product line row, given its known order_product_id (not an order_id or product_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/customer/{customer_id}",
+      "description": "ALL orders for ONE customer, given their known customer_id. Self-scoped: a customer can only pass their own customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/me",
+      "description": "ALL orders for the calling customer \u2014 no id/params needed, resolved from the caller's own verified identity. Customer role only; use GET /orders/customer/{customer_id} for staff looking up a specific customer."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}",
+      "description": "ONE order, given its known order_id. Does not include payment/invoice info \u2014 those are separate resources referencing the same order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/complete",
+      "description": "ONE order plus its product line items (with unit prices), given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/status",
+      "description": "Just the status of ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /payments/{payment_id}",
+      "description": "ONE payment, given its known payment_id (not an order_id \u2014 there is no get-payment-by-order; fetch the order's invoice first, which carries payment_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products",
+      "description": "ALL products in the catalog, including current inventory/stock level\n    (the `quantity` field on each) \u2014 no filter, no params."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/category/{category}",
+      "description": "ALL products (including current inventory/stock level, the `quantity`\n    field) in ONE exact category (case-sensitive equality, not fuzzy)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/{product_id}",
+      "description": "ONE product, given its known product_id."
+    },
+    {
+      "source": "rag",
+      "resource_id": "customer_support_sop.md",
+      "description": "This SOP standardizes how customer support agents handle inbound contacts \u2014 chat, email, phone, and social media \u2014 across the full range of eKart customer issues. It defines channel SLAs, ticket categorization, escalation paths, and agent authority limits so that customers receive consistent resolutions regardless of which agent or channel they use."
+    },
+    {
+      "source": "rag",
+      "resource_id": "order_processing_sop.md",
+      "description": "This SOP defines the end-to-end lifecycle of an order from the moment it is placed to the moment it is delivered (or returned), including the handoffs between the order management system, warehouse management system (WMS), and carrier network. It exists to ensure consistent handling, accurate status tracking, and predictable SLAs across all fulfillment centers (FCs)."
+    }
+  ],
+  "branches": {
+    "b1": {
+      "branch_id": "b1",
+      "sub_query": "What's the current inventory for our products?",
+      "approaches": [
+        {
+          "rank": 1,
+          "strategy": "Get all products and their current inventory levels.",
+          "confidence": 1.0,
+          "steps": [
+            {
+              "step_id": "s1",
+              "description": "Retrieve all products, including their current inventory quantity.",
+              "source": "api",
+              "resource": "operations:GET /products",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b1",
+              "approach_rank": 1
+            }
+          ],
+          "status": "succeeded",
+          "failure_reason": null
+        }
+      ]
+    },
+    "b2": {
+      "branch_id": "b2",
+      "sub_query": "What's the SOP for handling a backorder?",
+      "approaches": [
+        {
+          "rank": 1,
+          "strategy": "Search the customer support SOP for information on handling backorders.",
+          "confidence": 0.8,
+          "steps": [
+            {
+              "step_id": "s2",
+              "description": "Retrieve the customer support SOP document.",
+              "source": "rag",
+              "resource": "customer_support_sop.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b2",
+              "approach_rank": 1
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The provided document is a general customer support SOP and does not contain specific information on handling backorders."
+        },
+        {
+          "rank": 2,
+          "strategy": "Search the order processing SOP for information on handling backorders.",
+          "confidence": 0.7,
+          "steps": [
+            {
+              "step_id": "1",
+              "description": "Search the order processing SOP for information on handling backorders.",
+              "source": "rag",
+              "resource": "order_processing_sop.md",
+              "input_params": [
+                {
+                  "name": "query",
+                  "value": "backorder handling"
+                }
+              ],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b2",
+              "approach_rank": 2
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The provided text describes the general order processing lifecycle and delivery exceptions, but does not contain specific information on the Standard Operating Procedure (SOP) for handling backorders."
+        }
+      ]
+    }
+  },
+  "active_branch_id": "",
+  "attempt_index": 0,
+  "step_results": {
+    "b1.1.s1": {
+      "step_id": "s1",
+      "branch_id": "b1",
+      "approach_rank": 1,
+      "source": "api",
+      "resource": "operations:GET /products",
+      "description": "Retrieve all products, including their current inventory quantity.",
+      "inputs": {},
+      "operation_summary": "Called GET /products on operations-api",
+      "output": [
+        {
+          "product_id": 1,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Dell Inspiron 15",
+          "quantity": 25.0,
+          "price": 42999.0
+        },
+        {
+          "product_id": 2,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "HP Pavilion x360",
+          "quantity": 18.0,
+          "price": 54999.0
+        },
+        {
+          "product_id": 3,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Lenovo ThinkPad E14",
+          "quantity": 12.0,
+          "price": 61999.0
+        },
+        {
+          "product_id": 4,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Apple MacBook Air M2",
+          "quantity": 8.0,
+          "price": 99999.0
+        },
+        {
+          "product_id": 5,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Samsung Galaxy S23",
+          "quantity": 30.0,
+          "price": 74999.0
+        },
+        {
+          "product_id": 6,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "OnePlus Nord CE 3",
+          "quantity": 40.0,
+          "price": 26999.0
+        },
+        {
+          "product_id": 7,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Apple iPhone 14",
+          "quantity": 15.0,
+          "price": 69999.0
+        },
+        {
+          "product_id": 8,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Xiaomi Redmi Note 12",
+          "quantity": 50.0,
+          "price": 18999.0
+        },
+        {
+          "product_id": 9,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Prestige Non-Stick Tawa",
+          "quantity": 60.0,
+          "price": 899.0
+        },
+        {
+          "product_id": 10,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Milton Insulated Casserole",
+          "quantity": 45.0,
+          "price": 1299.0
+        },
+        {
+          "product_id": 11,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Pigeon Induction Pressure Cooker",
+          "quantity": 35.0,
+          "price": 1899.0
+        },
+        {
+          "product_id": 12,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Borosil Glass Storage Set",
+          "quantity": 55.0,
+          "price": 1099.0
+        },
+        {
+          "product_id": 13,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Levi's Slim Fit Jeans",
+          "quantity": 70.0,
+          "price": 2199.0
+        },
+        {
+          "product_id": 14,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Allen Solly Formal Shirt",
+          "quantity": 65.0,
+          "price": 1499.0
+        },
+        {
+          "product_id": 15,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Puma Running Shoes",
+          "quantity": 40.0,
+          "price": 3499.0
+        },
+        {
+          "product_id": 16,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Wildcraft Travel Backpack",
+          "quantity": 30.0,
+          "price": 1799.0
+        },
+        {
+          "product_id": 17,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Tata Tea Gold 1kg",
+          "quantity": 100.0,
+          "price": 549.0
+        },
+        {
+          "product_id": 18,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Amul Butter 500g",
+          "quantity": 90.0,
+          "price": 269.0
+        },
+        {
+          "product_id": 19,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Haldiram's Namkeen Mix",
+          "quantity": 120.0,
+          "price": 199.0
+        },
+        {
+          "product_id": 20,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Nescafe Classic Coffee 200g",
+          "quantity": 80.0,
+          "price": 399.0
+        },
+        {
+          "product_id": 21,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Atomic Habits - James Clear",
+          "quantity": 50.0,
+          "price": 499.0
+        },
+        {
+          "product_id": 22,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "The Alchemist - Paulo Coelho",
+          "quantity": 45.0,
+          "price": 399.0
+        },
+        {
+          "product_id": 23,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Rich Dad Poor Dad",
+          "quantity": 40.0,
+          "price": 349.0
+        },
+        {
+          "product_id": 24,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Classmate Notebook Pack",
+          "quantity": 200.0,
+          "price": 249.0
+        },
+        {
+          "product_id": 25,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Dell Inspiron 15",
+          "quantity": 25.0,
+          "price": 42999.0
+        },
+        {
+          "product_id": 26,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "HP Pavilion x360",
+          "quantity": 18.0,
+          "price": 54999.0
+        },
+        {
+          "product_id": 27,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Lenovo ThinkPad E14",
+          "quantity": 12.0,
+          "price": 61999.0
+        },
+        {
+          "product_id": 28,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Apple MacBook Air M2",
+          "quantity": 8.0,
+          "price": 99999.0
+        },
+        {
+          "product_id": 29,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Samsung Galaxy S23",
+          "quantity": 30.0,
+          "price": 74999.0
+        },
+        {
+          "product_id": 30,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "OnePlus Nord CE 3",
+          "quantity": 40.0,
+          "price": 26999.0
+        },
+        {
+          "product_id": 31,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Apple iPhone 14",
+          "quantity": 15.0,
+          "price": 69999.0
+        },
+        {
+          "product_id": 32,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Xiaomi Redmi Note 12",
+          "quantity": 50.0,
+          "price": 18999.0
+        },
+        {
+          "product_id": 33,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Prestige Non-Stick Tawa",
+          "quantity": 60.0,
+          "price": 899.0
+        },
+        {
+          "product_id": 34,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Milton Insulated Casserole",
+          "quantity": 45.0,
+          "price": 1299.0
+        },
+        {
+          "product_id": 35,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Pigeon Induction Pressure Cooker",
+          "quantity": 35.0,
+          "price": 1899.0
+        },
+        {
+          "product_id": 36,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Borosil Glass Storage Set",
+          "quantity": 55.0,
+          "price": 1099.0
+        },
+        {
+          "product_id": 37,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Levi's Slim Fit Jeans",
+          "quantity": 70.0,
+          "price": 2199.0
+        },
+        {
+          "product_id": 38,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Allen Solly Formal Shirt",
+          "quantity": 65.0,
+          "price": 1499.0
+        },
+        {
+          "product_id": 39,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Puma Running Shoes",
+          "quantity": 40.0,
+          "price": 3499.0
+        },
+        {
+          "product_id": 40,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Wildcraft Travel Backpack",
+          "quantity": 30.0,
+          "price": 1799.0
+        },
+        {
+          "product_id": 41,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Tata Tea Gold 1kg",
+          "quantity": 100.0,
+          "price": 549.0
+        },
+        {
+          "product_id": 42,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Amul Butter 500g",
+          "quantity": 90.0,
+          "price": 269.0
+        },
+        {
+          "product_id": 43,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Haldiram's Namkeen Mix",
+          "quantity": 120.0,
+          "price": 199.0
+        },
+        {
+          "product_id": 44,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Nescafe Classic Coffee 200g",
+          "quantity": 80.0,
+          "price": 399.0
+        },
+        {
+          "product_id": 45,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Atomic Habits - James Clear",
+          "quantity": 50.0,
+          "price": 499.0
+        },
+        {
+          "product_id": 46,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "The Alchemist - Paulo Coelho",
+          "quantity": 45.0,
+          "price": 399.0
+        },
+        {
+          "product_id": 47,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Rich Dad Poor Dad",
+          "quantity": 40.0,
+          "price": 349.0
+        },
+        {
+          "product_id": 48,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Classmate Notebook Pack",
+          "quantity": 200.0,
+          "price": 249.0
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    },
+    "b2.1.s2": {
+      "step_id": "s2",
+      "branch_id": "b2",
+      "approach_rank": 1,
+      "source": "rag",
+      "resource": "customer_support_sop.md",
+      "description": "Retrieve the customer support SOP document.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from customer_support_sop.md",
+      "output": [
+        {
+          "text": "# eKart Customer Support \u2014 Standard Operating Procedure  \n**Document Type:** Internal SOP\n**Effective Date:** January 1, 2026\n**Owning Team:** Customer Experience & Trust\n**Audience:** Support agents (Tier 1\u20133), team leads, quality analysts",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "## 1. Purpose  \nThis SOP standardizes how customer support agents handle inbound contacts \u2014 chat, email, phone, and social media \u2014 across the full range of eKart customer issues. It defines channel SLAs, ticket categorization, escalation paths, and agent authority limits so that customers receive consistent resolutions regardless of which agent or channel they use.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 1. Purpose",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "## 7. Quality Assurance  \n- 5% of all resolved tickets are randomly sampled weekly for QA review against this SOP.\n- QA scoring covers: accuracy of resolution, adherence to authority limits, tone/empathy, and SLA compliance.\n- Agents scoring below 85% on two consecutive QA cycles are placed on a coaching plan with their team lead.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 7. Quality Assurance",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "### 6.3 Payment Dispute\n1. Verify the transaction in the payment gateway dashboard \u2014 confirm whether it was a single authorization, a duplicate charge, or a legitimate separate order.\n2. Duplicate/erroneous charges are refunded immediately upon confirmation; no need to wait for customer to file a bank chargeback.\n3. If the customer has already filed a chargeback with their bank, do not issue a duplicate refund \u2014 flag the ticket for Finance reconciliation (see [financial_policies.md](financial_policies.md) Section 6) and inform the customer the chargeback is being processed by their bank.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.3 Payment Dispute",
+          "score": 0.015625
+        },
+        {
+          "text": "### 6.2 Return / Refund Request\n1. Confirm the item and reason are eligible under [refund_return_policy.md](refund_return_policy.md).\n2. If eligible, initiate the return in the OMS on the customer's behalf (or walk them through self-service) and confirm the refund method and expected timeline per policy Section 3.\n3. If the customer disputes eligibility (e.g., past the return window due to a claimed delivery delay), verify the claim against tracking data before making a goodwill exception decision within the agent's authority tier.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.2 Return / Refund Request",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    },
+    "b2.2.1": {
+      "step_id": "1",
+      "branch_id": "b2",
+      "approach_rank": 2,
+      "source": "rag",
+      "resource": "order_processing_sop.md",
+      "description": "Search the order processing SOP for information on handling backorders.",
+      "inputs": {
+        "query": "backorder handling"
+      },
+      "operation_summary": "Retrieved 5 chunk(s) from order_processing_sop.md",
+      "output": [
+        {
+          "text": "## 1. Purpose  \nThis SOP defines the end-to-end lifecycle of an order from the moment it is placed to the moment it is delivered (or returned), including the handoffs between the order management system, warehouse management system (WMS), and carrier network. It exists to ensure consistent handling, accurate status tracking, and predictable SLAs across all fulfillment centers (FCs).",
+          "source_file": "order_processing_sop.md",
+          "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 1. Purpose",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "# eKart Order Processing \u2014 Standard Operating Procedure  \n**Document Type:** Internal SOP\n**Effective Date:** January 1, 2026\n**Owning Team:** Fulfillment Operations\n**Audience:** Fulfillment center staff, warehouse managers, operations analysts",
+          "source_file": "order_processing_sop.md",
+          "header_path": "eKart Order Processing \u2014 Standard Operating Procedure",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "## 7. Delivery Exceptions  \n| Exception | Standard Handling |\n| :--- | :--- |\n| Failed delivery attempt (customer unavailable) | Carrier attempts up to 2 additional deliveries on the following business days; customer is notified via app/email/SMS after each attempt. |\n| Address undeliverable | Package is held at the carrier's local facility for 5 business days pending customer correction of address; if uncorrected, package is returned to the originating FC and the order is refunded minus original shipping cost. |\n| Package lost in transit | If a package shows no tracking movement for 5 consecutive days, Fulfillment Ops opens a carrier trace request. If unresolved after 3 business days, the order is treated as lost: customer is offered a full refund or a reshipment at no charge. |",
+          "source_file": "order_processing_sop.md",
+          "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 7. Delivery Exceptions",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "### 2.1 Status Definitions\n| Status | Definition | Typical Duration |\n| :--- | :--- | :--- |\n| Placed | Customer has submitted the order; not yet payment-verified. | < 1 minute |\n| Payment Confirmed | Payment gateway has authorized/captured funds (or COD order validated). | < 5 minutes |\n| Processing | Order allocated to a fulfillment center and queued for picking. | 1\u20134 hours |\n| Picked | Warehouse staff have physically retrieved all items for the order. | Same day as Processing |\n| Packed | Items boxed, labeled, and staged for carrier pickup. | Within 4 hours of Picked |\n| Shipped | Carrier has scanned the package into their network. | \u2014 |\n| Out for Delivery | Package is on a delivery vehicle for final-mile delivery. | Final day of transit |",
+          "source_file": "order_processing_sop.md",
+          "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 2. Order Lifecycle Overview > 2.1 Status Definitions",
+          "score": 0.015625
+        },
+        {
+          "text": "## 2. Order Lifecycle Overview  \nEvery order progresses through the following statuses, in order. An order may branch into \"On Hold,\" \"Cancelled,\" or \"Returned\" from most stages.  \n```\nPlaced \u2192 Payment Confirmed \u2192 Processing \u2192 Picked \u2192 Packed \u2192 Shipped \u2192 Out for Delivery \u2192 Delivered\n```",
+          "source_file": "order_processing_sop.md",
+          "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 2. Order Lifecycle Overview",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    }
+  },
+  "trace": [
+    "guardrail: passed",
+    "intent: 22 resource(s) available to role=worker",
+    "planning: 2 branch(es)",
+    "branch b1 (What's the current inventory for our products?): 1 approach(es), trying rank 1 [Get all products and their current inventory levels.] (confidence 1.00)",
+    "  step s1 -> [api] operations:GET /products",
+    "branch b2 (What's the SOP for handling a backorder?): 2 approach(es), trying rank 1 [Search the customer support SOP for information on handling backorders.] (confidence 0.80)",
+    "  step s2 -> [rag] customer_support_sop.md",
+    "api[s1]: GET /products (operations-api) -> ok",
+    "branch b1 approach 1: succeeded",
+    "rag[s2]: 5 chunk(s) from customer_support_sop.md",
+    "branch b2 approach 1: failed \u2014 The provided document is a general customer support SOP and does not contain specific information on handling backorders.",
+    "branch b2: refining approach 2 after rank 1 failure",
+    "rag[1]: 5 chunk(s) from order_processing_sop.md",
+    "branch b2 approach 2: failed \u2014 The provided text describes the general order processing lifecycle and delivery exceptions, but does not contain specific information on the Standard Operating Procedure (SOP) for handling backorders.",
+    "synthesis: generated answer from 2 step result(s) across 2 branch(es)"
+  ],
+  "answer": "Here is the current inventory for your products:\n\n*   **Electronics - Laptops:**\n    *   Dell Inspiron 15: 25\n    *   HP Pavilion x360: 18\n    *   Lenovo ThinkPad E14: 12\n    *   Apple MacBook Air M2: 8\n*   **Electronics - Mobiles:**\n    *   Samsung Galaxy S23: 30\n    *   OnePlus Nord CE 3: 40\n    *   Apple iPhone 14: 15\n    *   Xiaomi Redmi Note 12: 50\n*   **Home & Kitchen - Cookware:**\n    *   Prestige Non-Stick Tawa: 60\n    *   Milton Insulated Casserole: 45\n    *   Pigeon Induction Pressure Cooker: 35\n    *   Borosil Glass Storage Set: 55\n*   **Fashion - Men's Clothing:**\n    *   Levi's Slim Fit Jeans: 70\n    *   Allen Solly Formal Shirt: 65\n    *   Puma Running Shoes: 40\n    *   Wildcraft Travel Backpack: 30\n*   **Grocery - Snacks & Beverages:**\n    *   Tata Tea Gold 1kg: 100\n    *   Amul Butter 500g: 90\n    *   Haldiram's Namkeen Mix: 120\n    *   Nescafe Classic Coffee 200g: 80\n*   **Books & Stationery - Books:**\n    *   Atomic Habits - James Clear: 50\n    *   The Alchemist - Paulo Coelho: 45\n    *   Rich Dad Poor Dad: 40\n    *   Classmate Notebook Pack: 200\n\nThe provided documentation outlines the standard operating procedure for order processing, covering the order lifecycle from placement to delivery. However, it does not contain specific information on the SOP for handling backorders.",
+  "view_mode": "stepper"
+}

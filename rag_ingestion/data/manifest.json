@@ -1,0 +1,37 @@
+{
+  "customer_support_sop.md": {
+    "hash": "2d8ac34392065430dfaeb41f409b022ebe1048880fefd912db9d37e50dff06c0",
+    "allowed_roles": [
+      "worker"
+    ],
+    "description": "This SOP standardizes how customer support agents handle inbound contacts \u2014 chat, email, phone, and social media \u2014 across the full range of eKart customer issues. It defines channel SLAs, ticket categorization, escalation paths, and agent authority limits so that customers receive consistent resolutions regardless of which agent or channel they use."
+  },
+  "financial_policies.md": {
+    "hash": "4c4c4e3c3c9d1eb2ec8e2fd554fba8bb0f0f64d888ea6887e799e43ecdfc3dd5",
+    "allowed_roles": [
+      "manager"
+    ],
+    "description": "This document defines how eKart handles payment capture, refund accounting, chargebacks, seller payouts, and tax collection. It complements the customer-facing terms in [refund_return_policy.md](refund_return_policy.md) by describing the internal financial mechanics behind those customer commitments."
+  },
+  "legal_policies.md": {
+    "hash": "71f0e80234fcd566f366f48dc4abf214eca98250c1cbaf8b575af7a3ab725d05",
+    "allowed_roles": [
+      "manager"
+    ],
+    "description": "This document summarizes eKart's legal obligations and internal policy positions relating to customer transactions, data privacy, and marketplace conduct. It is a reference for internal decision-making and does not itself constitute the full legal terms shown to customers (see the public Terms of Service and Privacy Policy for the customer-facing versions)."
+  },
+  "order_processing_sop.md": {
+    "hash": "b69d9696e33dc9e7708cddaff0de64fd1d585bced82f5e442827fc2ac285e19e",
+    "allowed_roles": [
+      "worker"
+    ],
+    "description": "This SOP defines the end-to-end lifecycle of an order from the moment it is placed to the moment it is delivered (or returned), including the handoffs between the order management system, warehouse management system (WMS), and carrier network. It exists to ensure consistent handling, accurate status tracking, and predictable SLAs across all fulfillment centers (FCs)."
+  },
+  "refund_return_policy.md": {
+    "hash": "7820fb9f0dc98d732357e9cc4b814b540817a176ab95004dd922bfb139b4bb02",
+    "allowed_roles": [
+      "customer"
+    ],
+    "description": "This policy defines the conditions, timelines, and process by which customers may return purchased items and receive refunds. It applies to all product categories sold and fulfilled by eKart, as well as items sold by third-party marketplace sellers who use eKart's fulfillment and payment infrastructure."
+  }
+}

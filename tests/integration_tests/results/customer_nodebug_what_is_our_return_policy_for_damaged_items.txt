@@ -1,0 +1,204 @@
+Input:
+username: alice
+role: customer
+debug mode: False
+prompt: What is our return policy for damaged items?
+
+Output:
+{
+  "query": "What is our return policy for damaged items?",
+  "role": "customer",
+  "debug": false,
+  "guardrail_passed": true,
+  "catalog": [
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/customer/{customer_id}",
+      "description": "ALL addresses for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/{customer_address_id}",
+      "description": "ONE address, given its known customer_address_id (not a customer_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/customer/{customer_id}",
+      "description": "ALL payment methods for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/{payment_method_id}",
+      "description": "ONE payment method, given its known payment_method_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /users/{customer_id}",
+      "description": "ONE customer's profile, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/by-order/{order_id}/status",
+      "description": "Delivery status and date for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/{delivery_id}",
+      "description": "ONE delivery, given its known delivery_id (not an order_id \u2014 use by-order/{order_id}/status for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/by-order/{order_id}",
+      "description": "The invoice for ONE order, given its known order_id \u2014 this is how to find an order's payment_id (invoice.payment_id), since there is no direct get-payment-by-order."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/{invoice_id}",
+      "description": "ONE invoice, given its known invoice_id (not an order_id \u2014 use by-order/{order_id} for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/by-order/{order_id}",
+      "description": "ALL product line items for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/{order_product_id}",
+      "description": "ONE order-product line row, given its known order_product_id (not an order_id or product_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/customer/{customer_id}",
+      "description": "ALL orders for ONE customer, given their known customer_id. Self-scoped: a customer can only pass their own customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/me",
+      "description": "ALL orders for the calling customer \u2014 no id/params needed, resolved from the caller's own verified identity. Customer role only; use GET /orders/customer/{customer_id} for staff looking up a specific customer."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}",
+      "description": "ONE order, given its known order_id. Does not include payment/invoice info \u2014 those are separate resources referencing the same order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/complete",
+      "description": "ONE order plus its product line items (with unit prices), given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/status",
+      "description": "Just the status of ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /payments/{payment_id}",
+      "description": "ONE payment, given its known payment_id (not an order_id \u2014 there is no get-payment-by-order; fetch the order's invoice first, which carries payment_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/category/{category}",
+      "description": "ALL products (including current inventory/stock level, the `quantity`\n    field) in ONE exact category (case-sensitive equality, not fuzzy)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/{product_id}",
+      "description": "ONE product, given its known product_id."
+    },
+    {
+      "source": "rag",
+      "resource_id": "refund_return_policy.md",
+      "description": "This policy defines the conditions, timelines, and process by which customers may return purchased items and receive refunds. It applies to all product categories sold and fulfilled by eKart, as well as items sold by third-party marketplace sellers who use eKart's fulfillment and payment infrastructure."
+    }
+  ],
+  "branches": {
+    "b1": {
+      "branch_id": "b1",
+      "sub_query": "What is our return policy for damaged items?",
+      "approaches": [
+        {
+          "rank": 1,
+          "strategy": "Use the refund_return_policy.md RAG resource to find information about returns for damaged items.",
+          "confidence": 0.95,
+          "steps": [
+            {
+              "step_id": "s1",
+              "description": "Retrieve the refund and return policy document.",
+              "source": "rag",
+              "resource": "refund_return_policy.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b1",
+              "approach_rank": 1
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The document mentions that customers can select 'Item defective' as a reason for return and that eKart generates a prepaid return shipping label for damaged/defective/incorrect items, but it does not specify the return policy for damaged items."
+        }
+      ]
+    }
+  },
+  "active_branch_id": "",
+  "attempt_index": 0,
+  "step_results": {
+    "b1.1.s1": {
+      "step_id": "s1",
+      "branch_id": "b1",
+      "approach_rank": 1,
+      "source": "rag",
+      "resource": "refund_return_policy.md",
+      "description": "Retrieve the refund and return policy document.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from refund_return_policy.md",
+      "output": [
+        {
+          "text": "# eKart Refund & Return Policy  \n**Effective Date:** January 1, 2026\n**Applies To:** All purchases made through the eKart marketplace (web and mobile app)\n**Owning Team:** Customer Experience & Trust",
+          "source_file": "refund_return_policy.md",
+          "header_path": "eKart Refund & Return Policy",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "## 1. Purpose  \nThis policy defines the conditions, timelines, and process by which customers may return purchased items and receive refunds. It applies to all product categories sold and fulfilled by eKart, as well as items sold by third-party marketplace sellers who use eKart's fulfillment and payment infrastructure.",
+          "source_file": "refund_return_policy.md",
+          "header_path": "eKart Refund & Return Policy > 1. Purpose",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "## 6. Marketplace Seller Items  \nItems sold by third-party sellers but fulfilled through \"eKart Fulfillment\" follow this same policy in full. Items that are sold **and** shipped directly by a third-party seller (marked \"Sold by [Seller Name], Ships from Seller\") may have seller-specific return windows and conditions, which are displayed on the product listing page prior to purchase. eKart's Customer Support team mediates disputes for marketplace orders where a seller does not honor their stated return policy.",
+          "source_file": "refund_return_policy.md",
+          "header_path": "eKart Refund & Return Policy > 6. Marketplace Seller Items",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "## 7. Policy Exceptions  \nCustomer Support Leads and above may authorize a one-time policy exception (e.g., extending a return window by up to 14 days) for high-value customers or extenuating circumstances (documented illness, natural disaster affecting delivery region, etc.). Exceptions must be logged in the support ticket with a reason code. See [customer_support_sop.md](customer_support_sop.md) Section 5 for escalation authority levels.",
+          "source_file": "refund_return_policy.md",
+          "header_path": "eKart Refund & Return Policy > 7. Policy Exceptions",
+          "score": 0.015625
+        },
+        {
+          "text": "## 4. Return Process  \n1. **Initiate the Return:** Customer opens the order in \"My Orders,\" selects the item(s), and selects \"Return or Replace Item.\"\n2. **Select Reason:** Customer selects a return reason (e.g., \"No longer needed,\" \"Wrong item received,\" \"Item defective\") and, if applicable, uploads photos.\n3. **Choose Resolution:** Customer selects refund to original payment method, Store Credit, or (where eligible) a replacement item.\n4. **Print Label / Schedule Pickup:** eKart generates a prepaid return shipping label for damaged/defective/incorrect items at no cost. For change-of-mind returns on Furniture & Large Items, the customer is shown the estimated return shipping cost before confirming.",
+          "source_file": "refund_return_policy.md",
+          "header_path": "eKart Refund & Return Policy > 4. Return Process",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    }
+  },
+  "trace": [
+    "guardrail: passed",
+    "intent: 20 resource(s) available to role=customer",
+    "planning: 1 branch(es)",
+    "branch b1 (What is our return policy for damaged items?): 1 approach(es), trying rank 1 [Use the refund_return_policy.md RAG resource to find information about returns for damaged items.] (confidence 0.95)",
+    "  step s1 -> [rag] refund_return_policy.md",
+    "rag[s1]: 5 chunk(s) from refund_return_policy.md",
+    "branch b1 approach 1: failed \u2014 The document mentions that customers can select 'Item defective' as a reason for return and that eKart generates a prepaid return shipping label for damaged/defective/incorrect items, but it does not specify the return policy for damaged items.",
+    "synthesis: generated answer from 1 step result(s) across 1 branch(es)"
+  ],
+  "answer": "To return a damaged item, you should initiate the return through the \"My Orders\" section of your account. Select the item, then choose \"Return or Replace Item.\" You will need to select \"Item defective\" as the reason and upload photos if applicable. For damaged, defective, or incorrect items, eKart will provide a prepaid return shipping label at no cost to you. You can then choose between a refund to your original payment method, store credit, or a replacement item, if eligible.",
+  "view_mode": "direct"
+}

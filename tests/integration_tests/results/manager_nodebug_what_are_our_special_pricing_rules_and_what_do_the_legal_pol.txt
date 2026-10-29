@@ -1,0 +1,2294 @@
+Input:
+username: carol
+role: manager
+debug mode: False
+prompt: What are our special pricing rules, and what do the legal policies say about refunds?
+
+Output:
+{
+  "query": "What are our special pricing rules, and what do the legal policies say about refunds?",
+  "role": "manager",
+  "debug": false,
+  "guardrail_passed": true,
+  "catalog": [
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses",
+      "description": "ALL addresses for ALL customers \u2014 no filter, no params. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/customer/{customer_id}",
+      "description": "ALL addresses for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/{customer_address_id}",
+      "description": "ONE address, given its known customer_address_id (not a customer_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods",
+      "description": "ALL payment methods for ALL customers \u2014 no filter, no params. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/customer/{customer_id}",
+      "description": "ALL payment methods for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/type/{payment_type}",
+      "description": "ALL payment methods (any customer) of ONE exact payment_type (\"Debit Card\" or \"Credit Card\"). Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/{payment_method_id}",
+      "description": "ONE payment method, given its known payment_method_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /users",
+      "description": "ALL customer profiles (name, email, phone) \u2014 no filter, no params. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /users/{customer_id}",
+      "description": "ONE customer's profile, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries",
+      "description": "ALL deliveries for ALL orders \u2014 no filter, no params. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/by-order/{order_id}/status",
+      "description": "Delivery status and date for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/{delivery_id}",
+      "description": "ONE delivery, given its known delivery_id (not an order_id \u2014 use by-order/{order_id}/status for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices",
+      "description": "ALL invoices for ALL orders \u2014 no filter, no params. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/by-order/{order_id}",
+      "description": "The invoice for ONE order, given its known order_id \u2014 this is how to find an order's payment_id (invoice.payment_id), since there is no direct get-payment-by-order."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/{invoice_id}",
+      "description": "ONE invoice, given its known invoice_id (not an order_id \u2014 use by-order/{order_id} for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products",
+      "description": "ALL order-product line rows across ALL orders \u2014 no filter, no params. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/by-order/{order_id}",
+      "description": "ALL product line items for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/by-product/{product_id}",
+      "description": "ALL orders (any customer) that contain ONE product, given its known product_id. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/{order_product_id}",
+      "description": "ONE order-product line row, given its known order_product_id (not an order_id or product_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders",
+      "description": "ALL orders for ALL customers \u2014 no filter, no params. Manager only. For a customer's own orders, use GET /orders/me instead."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/customer/{customer_id}",
+      "description": "ALL orders for ONE customer, given their known customer_id. Self-scoped: a customer can only pass their own customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/me",
+      "description": "ALL orders for the calling customer \u2014 no id/params needed, resolved from the caller's own verified identity. Customer role only; use GET /orders/customer/{customer_id} for staff looking up a specific customer."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}",
+      "description": "ONE order, given its known order_id. Does not include payment/invoice info \u2014 those are separate resources referencing the same order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/complete",
+      "description": "ONE order plus its product line items (with unit prices), given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/status",
+      "description": "Just the status of ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /payments",
+      "description": "ALL payments for ALL orders \u2014 no filter, no params. Manager only."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /payments/type/{payment_type}",
+      "description": "ALL payments (any customer) made with ONE exact payment_type (\"Debit Card\" or \"Credit Card\"). Manager only. Resolves the type to payment methods via the customer-api first."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /payments/{payment_id}",
+      "description": "ONE payment, given its known payment_id (not an order_id \u2014 there is no get-payment-by-order; fetch the order's invoice first, which carries payment_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products",
+      "description": "ALL products in the catalog, including current inventory/stock level\n    (the `quantity` field on each) \u2014 no filter, no params."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/category/{category}",
+      "description": "ALL products (including current inventory/stock level, the `quantity`\n    field) in ONE exact category (case-sensitive equality, not fuzzy)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/{product_id}",
+      "description": "ONE product, given its known product_id."
+    },
+    {
+      "source": "rag",
+      "resource_id": "financial_policies.md",
+      "description": "This document defines how eKart handles payment capture, refund accounting, chargebacks, seller payouts, and tax collection. It complements the customer-facing terms in [refund_return_policy.md](refund_return_policy.md) by describing the internal financial mechanics behind those customer commitments."
+    },
+    {
+      "source": "rag",
+      "resource_id": "legal_policies.md",
+      "description": "This document summarizes eKart's legal obligations and internal policy positions relating to customer transactions, data privacy, and marketplace conduct. It is a reference for internal decision-making and does not itself constitute the full legal terms shown to customers (see the public Terms of Service and Privacy Policy for the customer-facing versions)."
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.address_locations",
+      "description": "Distinct (city, state, country) combinations that appear in any customer address. Not customer-specific \u2014 a location lookup list, not an address list. [columns: city character varying(100), state character varying(100), country character varying(100)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.customer_address",
+      "description": "Every address row for every customer (no filter), including is_primary. Use get_customer_addresses(id)/get_customer_primary_address(id) instead if you only need one customer. [columns: customer_address_id integer, customer_id integer, street_line_1 character varying(255), street_line_2 character varying(255), city character varying(100), state character varying(100), country character varying(100), postal_code character varying(20), is_primary boolean]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.customer_contact",
+      "description": "All customers' id, email, and phone number (no filter). Use get_customer_email/get_customer_contact_number instead if you only need one customer. [columns: customer_id integer, email character varying(255), contact_number character varying(30)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.customer_name",
+      "description": "All customers' id and name (no filter \u2014 returns every row in dbo.profile). Use get_customer_name(id) instead if you only need one customer. [columns: customer_id integer, first_name character varying(100), last_name character varying(100)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.customer_payment",
+      "description": "Every payment method row for every customer (no filter). Use get_customer_payment_methods(id) instead if you only need one customer. [columns: payment_method_id integer, customer_id integer, payment_type dbo.payment_type, card_last_four character(4), billing_address text]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.customer_profile",
+      "description": "Every customer's full profile: name, email, and phone in one row (no filter). Covers everything customer_name + customer_contact do together. [columns: customer_id integer, first_name character varying(100), last_name character varying(100), email character varying(255), contact_number character varying(30)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.find_customer_by_email",
+      "description": "Looks up a customer's id/name/contact info by their exact email address \u2014 use this to resolve an email to a customer_id. [call as find_customer_by_email(p_email character varying) -> returns TABLE(customer_id integer, first_name character varying, last_name character varying, email character varying, contact_number character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.find_customers_by_address",
+      "description": "Customers who have an address exactly matching the given city, state, and country (all three required \u2014 no partial match). [call as find_customers_by_address(p_city character varying, p_state character varying, p_country character varying) -> returns TABLE(customer_id integer, first_name character varying, last_name character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.get_customer_addresses",
+      "description": "ALL address rows for ONE customer, given their known customer_id. [call as get_customer_addresses(p_customer_id integer) -> returns TABLE(customer_address_id integer, street_line_1 character varying, street_line_2 character varying, city character varying, state character varying, country character varying, postal_code character varying, is_primary boolean)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.get_customer_contact_number",
+      "description": "The phone number of ONE customer, given their known customer_id. [call as get_customer_contact_number(p_customer_id integer) -> returns character varying]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.get_customer_email",
+      "description": "The email address of ONE customer, given their known customer_id. [call as get_customer_email(p_customer_id integer) -> returns character varying]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.get_customer_name",
+      "description": "First and last name of ONE customer, given their known customer_id. [call as get_customer_name(p_customer_id integer) -> returns TABLE(first_name character varying, last_name character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.get_customer_payment_methods",
+      "description": "ALL payment method rows for ONE customer, given their known customer_id. [call as get_customer_payment_methods(p_customer_id integer) -> returns TABLE(payment_method_id integer, payment_type dbo.payment_type, card_last_four character, billing_address text)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "customerdb.get_customer_primary_address",
+      "description": "The single address flagged is_primary for ONE customer, given their known customer_id. Empty if none is flagged primary. [call as get_customer_primary_address(p_customer_id integer) -> returns TABLE(customer_address_id integer, street_line_1 character varying, street_line_2 character varying, city character varying, state character varying, country character varying, postal_code character varying, is_primary boolean)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.completed_orders",
+      "description": "ALL orders with status Delivered, across ALL customers, each with its invoiced order_amount and tax_amount \u2014 no filter, no args, manager only. [columns: order_id integer, payment_id integer, invoice_id integer, order_date timestamp without time zone, invoice_date timestamp without time zone, delivery_date timestamp without time zone, order_amount numeric(12,2), tax_amount numeric(12,2)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_categories",
+      "description": "Every distinct product category value that exists (no args) \u2014 use this to discover valid values for get_products_by_category. [call as get_categories() -> returns TABLE(category character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_deliveries",
+      "description": "ALL deliveries for ALL orders (no filter, no args) \u2014 worker/manager only. [call as get_deliveries() -> returns TABLE(delivery_id integer, order_id integer, customer_id integer, invoice_id integer, customer_address_id integer, delivery_date timestamp without time zone, delivery_status dbo.delivery_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_delivery",
+      "description": "ONE delivery, given its known delivery_id (not an order_id \u2014 use get_delivery_status_by_order for that). [call as get_delivery(p_delivery_id integer) -> returns TABLE(delivery_id integer, order_id integer, customer_id integer, invoice_id integer, customer_address_id integer, delivery_date timestamp without time zone, delivery_status dbo.delivery_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_delivery_status_by_order",
+      "description": "Delivery status and date for ONE order, given its known order_id. [call as get_delivery_status_by_order(p_order_id integer) -> returns TABLE(order_id integer, customer_id integer, delivery_status dbo.delivery_status, delivery_date timestamp without time zone)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_delivery_statuses",
+      "description": "Every possible delivery_status enum value (no args) \u2014 a fixed reference list, not data about any specific delivery. [call as get_delivery_statuses() -> returns TABLE(delivery_status dbo.delivery_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_invoice",
+      "description": "ONE invoice, given its known invoice_id (not an order_id \u2014 use get_invoice_by_order for that). [call as get_invoice(p_invoice_id integer) -> returns TABLE(invoice_id integer, order_id integer, customer_id integer, payment_id integer, invoice_date timestamp without time zone, order_amount numeric, tax_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_invoice_by_customer",
+      "description": "ONE invoice, verifying it belongs to the given customer_id \u2014 both customer_id and invoice_id must already be known. [call as get_invoice_by_customer(p_customer_id integer, p_invoice_id integer) -> returns TABLE(invoice_id integer, order_id integer, payment_id integer, invoice_date timestamp without time zone, order_amount numeric, tax_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_invoice_by_order",
+      "description": "The invoice for ONE order, given its known order_id \u2014 this is how to find an order's payment_id (invoice.payment_id), since there is no direct get_payment_by_order. [call as get_invoice_by_order(p_order_id integer) -> returns TABLE(invoice_id integer, order_id integer, customer_id integer, payment_id integer, invoice_date timestamp without time zone, order_amount numeric, tax_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_invoice_date_and_total",
+      "description": "Just the date and total_amount (order_amount + tax_amount, revenue) for ONE invoice, given its known invoice_id \u2014 worker/manager only. This is the resource to sum for revenue questions, not order_amount (internal-only). [call as get_invoice_date_and_total(p_invoice_id integer) -> returns TABLE(invoice_date timestamp without time zone, total_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_invoices",
+      "description": "ALL invoices for ALL orders (no filter, no args) \u2014 worker/manager only. [call as get_invoices() -> returns TABLE(invoice_id integer, order_id integer, customer_id integer, payment_id integer, invoice_date timestamp without time zone, order_amount numeric, tax_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_invoices_by_date",
+      "description": "Invoices issued on exactly ONE calendar day (not a range) \u2014 takes a single p_date, not a start/end pair. Manager only. To total revenue over a month, this must be called once per day in the range (or via a broader manual query) \u2014 there is no start/end-date revenue function. [call as get_invoices_by_date(p_date date) -> returns TABLE(invoice_id integer, order_id integer, payment_id integer, invoice_date timestamp without time zone, order_amount numeric, tax_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order",
+      "description": "ONE order, given its known order_id. [call as get_order(p_order_id integer) -> returns TABLE(order_id integer, customer_id integer, order_date timestamp without time zone, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_by_customer_and_order",
+      "description": "ONE order, verifying it belongs to the given customer_id \u2014 both customer_id and order_id must already be known. [call as get_order_by_customer_and_order(p_customer_id integer, p_order_id integer) -> returns TABLE(order_id integer, customer_id integer, order_date timestamp without time zone, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_by_product_and_dates",
+      "description": "Orders containing ONE product (by product_id) placed within a date range \u2014 takes p_start_date AND p_end_date (inclusive), unlike get_orders_by_date which takes only one day. [call as get_order_by_product_and_dates(p_product_id integer, p_start_date date, p_end_date date) -> returns TABLE(order_id integer, customer_id integer, order_date timestamp without time zone, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_line_items",
+      "description": "Per-product line items (with the actual unit_price charged, special-price-aware) for ONE order, given its known order_id. [call as get_order_line_items(p_order_id integer) -> returns TABLE(order_product_id integer, product_id integer, product_name character varying, special_priced boolean, quantity numeric, uom character varying, unit_price numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_product",
+      "description": "ONE order-product line row, given its known order_product_id (not an order_id or product_id). [call as get_order_product(p_order_product_id integer) -> returns TABLE(order_product_id integer, order_id integer, customer_id integer, product_id integer, special_priced boolean, quantity numeric, uom character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_product_by_order",
+      "description": "ALL order-product line rows for ONE order, given its known order_id. [call as get_order_product_by_order(p_order_id integer) -> returns TABLE(order_product_id integer, order_id integer, product_id integer, special_priced boolean, quantity numeric, uom character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_products",
+      "description": "ALL order-product line rows for ALL orders (no filter, no args) \u2014 worker/manager only. [call as get_order_products() -> returns TABLE(order_product_id integer, order_id integer, customer_id integer, product_id integer, special_priced boolean, quantity numeric, uom character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_status",
+      "description": "Just the status of ONE order, given its known order_id. [call as get_order_status(p_order_id integer) -> returns TABLE(order_id integer, customer_id integer, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_order_statuses",
+      "description": "Every possible order_status enum value (no args) \u2014 a fixed reference list, not data about any specific order. [call as get_order_statuses() -> returns TABLE(order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_orders",
+      "description": "ALL orders for ALL customers (no filter, no args) \u2014 worker/manager only. [call as get_orders() -> returns TABLE(order_id integer, customer_id integer, order_date timestamp without time zone, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_orders_by_customer",
+      "description": "ALL orders belonging to ONE customer, given their known customer_id. [call as get_orders_by_customer(p_customer_id integer) -> returns TABLE(order_id integer, customer_id integer, order_date timestamp without time zone, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_orders_by_date",
+      "description": "Orders placed on exactly ONE calendar day (not a range) \u2014 takes a single p_date. For a date range, call it once per day or use get_order_by_product_and_dates if also filtering by product. [call as get_orders_by_date(p_date date) -> returns TABLE(order_id integer, customer_id integer, order_date timestamp without time zone, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_orders_by_product",
+      "description": "ALL orders (any customer, any date) that contain ONE product, given its known product_id \u2014 worker/manager only. [call as get_orders_by_product(p_product_id integer) -> returns TABLE(order_id integer, customer_id integer, order_date timestamp without time zone, order_status dbo.order_status)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_payment",
+      "description": "ONE payment, given its known payment_id (not an order_id \u2014 there is no get_payment_by_order; go via get_invoice_by_order to find the payment_id for an order, since invoices carry it). [call as get_payment(p_payment_id integer) -> returns TABLE(payment_id integer, order_id integer, customer_id integer, payment_method_id integer, payment_date timestamp without time zone, payment_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_payments",
+      "description": "ALL payments for ALL orders (no filter, no args) \u2014 worker/manager only. [call as get_payments() -> returns TABLE(payment_id integer, order_id integer, customer_id integer, payment_method_id integer, payment_date timestamp without time zone, payment_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_payments_by_method_ids",
+      "description": "Payments matching ANY of a given LIST of payment_method_id values (an array, not a single id) \u2014 worker/manager only. [call as get_payments_by_method_ids(p_payment_method_ids integer[]) -> returns TABLE(payment_id integer, order_id integer, customer_id integer, payment_method_id integer, payment_date timestamp without time zone, payment_amount numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_product",
+      "description": "ONE product, given its known product_id. [call as get_product(p_product_id integer) -> returns TABLE(product_id integer, category character varying, sub_category character varying, product_name character varying, quantity numeric, price numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_product_by_name",
+      "description": "ONE product, given its EXACT product_name (case-sensitive equality \u2014 use search_products for a fuzzy match). [call as get_product_by_name(p_product_name character varying) -> returns TABLE(product_id integer, category character varying, sub_category character varying, product_name character varying, quantity numeric, price numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_products",
+      "description": "ALL products in the catalog (no filter, no args). [call as get_products() -> returns TABLE(product_id integer, category character varying, sub_category character varying, product_name character varying, quantity numeric, price numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_products_by_category",
+      "description": "ALL products in ONE exact category (e.g. \"Electronics\") \u2014 use get_categories() first if you don't know the exact value. [call as get_products_by_category(p_category character varying) -> returns TABLE(product_id integer, category character varying, sub_category character varying, product_name character varying, quantity numeric, price numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_products_by_sub_category",
+      "description": "ALL products in ONE exact sub_category \u2014 use get_sub_categories() first if you don't know the exact value. [call as get_products_by_sub_category(p_sub_category character varying) -> returns TABLE(product_id integer, category character varying, sub_category character varying, product_name character varying, quantity numeric, price numeric)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.get_sub_categories",
+      "description": "Every distinct product sub_category value that exists (no args) \u2014 use this to discover valid values for get_products_by_sub_category. [call as get_sub_categories() -> returns TABLE(sub_category character varying)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.pending_orders",
+      "description": "ALL orders with status Pending, across ALL customers, each with its order_amount total \u2014 no filter, no args, manager only. [columns: order_id integer, order_date timestamp without time zone, order_status dbo.order_status, order_amount numeric]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.product_metadata",
+      "description": "Every product's id/category/sub_category/name only (no quantity or price) \u2014 no filter, no args. [columns: product_id integer, category character varying(100), sub_category character varying(100), product_name character varying(255)]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.rejected_or_refunded_orders",
+      "description": "ALL orders with status Cancelled, Refunded, or Returned, across ALL customers, each with its order_amount total \u2014 no filter, no args, manager only. [columns: order_id integer, order_date timestamp without time zone, order_status dbo.order_status, order_amount numeric]"
+    },
+    {
+      "source": "sql",
+      "resource_id": "operationsdb.search_products",
+      "description": "Fuzzy, case-insensitive substring match for one search term against product_name, category, and sub_category together. [call as search_products(p_search_string character varying) -> returns TABLE(product_id integer, category character varying, sub_category character varying, product_name character varying, quantity numeric, price numeric)]"
+    }
+  ],
+  "branches": {
+    "b1": {
+      "branch_id": "b1",
+      "sub_query": "What are our special pricing rules?",
+      "approaches": [
+        {
+          "rank": 1,
+          "strategy": "Look up product pricing rules, which may include special pricing.",
+          "confidence": 0.7,
+          "steps": [
+            {
+              "step_id": "s1",
+              "description": "Get all products to check for special pricing indicators.",
+              "source": "sql",
+              "resource": "operationsdb.get_products",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b1",
+              "approach_rank": 1
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The pricing rules are not specified. The query returned product information and prices, not pricing rules. There is no information about special pricing, discounts, or any other pricing rules."
+        },
+        {
+          "rank": 2,
+          "strategy": "Check product metadata for any special pricing flags or fields.",
+          "confidence": 0.5,
+          "steps": [
+            {
+              "step_id": "1",
+              "description": "Retrieve all products with their metadata, looking for any fields that might indicate special pricing.",
+              "source": "sql",
+              "resource": "operationsdb.product_metadata",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b1",
+              "approach_rank": 2
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The product metadata does not contain any information about special pricing rules. It only contains product details like category, sub-category, and name."
+        },
+        {
+          "rank": 3,
+          "strategy": "Search for general pricing policies in RAG documents.",
+          "confidence": 0.3,
+          "steps": [
+            {
+              "step_id": "1",
+              "description": "Search for documents related to pricing policies.",
+              "source": "rag",
+              "resource": "financial_policies.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b1",
+              "approach_rank": 3
+            },
+            {
+              "step_id": "2",
+              "description": "Search for documents related to legal policies that might contain pricing rules.",
+              "source": "rag",
+              "resource": "legal_policies.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b1",
+              "approach_rank": 3
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The search results contain information about seller payouts, refunds, and general legal policies, but do not specify any special pricing rules."
+        }
+      ]
+    },
+    "b2": {
+      "branch_id": "b2",
+      "sub_query": "What do the legal policies say about refunds?",
+      "approaches": [
+        {
+          "rank": 1,
+          "strategy": "Retrieve information about refund policies from the legal policies document.",
+          "confidence": 0.9,
+          "steps": [
+            {
+              "step_id": "s2",
+              "description": "Get the legal policies document which may contain refund information.",
+              "source": "rag",
+              "resource": "legal_policies.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b2",
+              "approach_rank": 1
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The legal policies document mentions that statutory consumer protection rights may grant broader refund rights than eKart's standard policy, and that support agents should consult a region-specific override table. However, the document itself does not detail what these broader refund rights are or provide the override table. Therefore, the specific details about refunds according to legal policies are missing."
+        },
+        {
+          "rank": 2,
+          "strategy": "Check the financial policies document for details on refund accounting.",
+          "confidence": 0.8,
+          "steps": [
+            {
+              "step_id": "1",
+              "description": "Retrieve information about refund accounting from the financial policies document.",
+              "source": "rag",
+              "resource": "financial_policies.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b2",
+              "approach_rank": 2
+            },
+            {
+              "step_id": "2",
+              "description": "Retrieve information about legal obligations and policy positions related to customer transactions from the legal policies document.",
+              "source": "rag",
+              "resource": "legal_policies.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b2",
+              "approach_rank": 2
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The legal policies document mentions that regional statutory consumer protection rights may grant broader refund rights than standard policy, and that agents should consult a region-specific override table. However, this table and the specific details of these broader rights are not provided in the retrieved documents."
+        },
+        {
+          "rank": 3,
+          "strategy": "Look for customer-facing refund policy information.",
+          "confidence": 0.6,
+          "steps": [
+            {
+              "step_id": "2",
+              "description": "Retrieve the legal policies document.",
+              "source": "rag",
+              "resource": "legal_policies.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b2",
+              "approach_rank": 3
+            }
+          ],
+          "status": "failed",
+          "failure_reason": "The legal policies document mentions that statutory consumer protection rights may grant broader refund rights than the standard policy, and advises consulting a region-specific override table. However, it does not detail these rights or the contents of the override table, nor does it provide the customer-facing refund policy itself."
+        }
+      ]
+    }
+  },
+  "active_branch_id": "",
+  "attempt_index": 0,
+  "step_results": {
+    "b1.1.s1": {
+      "step_id": "s1",
+      "branch_id": "b1",
+      "approach_rank": 1,
+      "source": "sql",
+      "resource": "operationsdb.get_products",
+      "description": "Get all products to check for special pricing indicators.",
+      "inputs": {},
+      "operation_summary": "Fetched 48 row(s) from operationsdb.get_products",
+      "output": [
+        {
+          "product_id": 1,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Dell Inspiron 15",
+          "quantity": "25.000",
+          "price": "42999.00"
+        },
+        {
+          "product_id": 2,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "HP Pavilion x360",
+          "quantity": "18.000",
+          "price": "54999.00"
+        },
+        {
+          "product_id": 3,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Lenovo ThinkPad E14",
+          "quantity": "12.000",
+          "price": "61999.00"
+        },
+        {
+          "product_id": 4,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Apple MacBook Air M2",
+          "quantity": "8.000",
+          "price": "99999.00"
+        },
+        {
+          "product_id": 5,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Samsung Galaxy S23",
+          "quantity": "30.000",
+          "price": "74999.00"
+        },
+        {
+          "product_id": 6,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "OnePlus Nord CE 3",
+          "quantity": "40.000",
+          "price": "26999.00"
+        },
+        {
+          "product_id": 7,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Apple iPhone 14",
+          "quantity": "15.000",
+          "price": "69999.00"
+        },
+        {
+          "product_id": 8,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Xiaomi Redmi Note 12",
+          "quantity": "50.000",
+          "price": "18999.00"
+        },
+        {
+          "product_id": 9,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Prestige Non-Stick Tawa",
+          "quantity": "60.000",
+          "price": "899.00"
+        },
+        {
+          "product_id": 10,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Milton Insulated Casserole",
+          "quantity": "45.000",
+          "price": "1299.00"
+        },
+        {
+          "product_id": 11,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Pigeon Induction Pressure Cooker",
+          "quantity": "35.000",
+          "price": "1899.00"
+        },
+        {
+          "product_id": 12,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Borosil Glass Storage Set",
+          "quantity": "55.000",
+          "price": "1099.00"
+        },
+        {
+          "product_id": 13,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Levi's Slim Fit Jeans",
+          "quantity": "70.000",
+          "price": "2199.00"
+        },
+        {
+          "product_id": 14,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Allen Solly Formal Shirt",
+          "quantity": "65.000",
+          "price": "1499.00"
+        },
+        {
+          "product_id": 15,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Puma Running Shoes",
+          "quantity": "40.000",
+          "price": "3499.00"
+        },
+        {
+          "product_id": 16,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Wildcraft Travel Backpack",
+          "quantity": "30.000",
+          "price": "1799.00"
+        },
+        {
+          "product_id": 17,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Tata Tea Gold 1kg",
+          "quantity": "100.000",
+          "price": "549.00"
+        },
+        {
+          "product_id": 18,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Amul Butter 500g",
+          "quantity": "90.000",
+          "price": "269.00"
+        },
+        {
+          "product_id": 19,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Haldiram's Namkeen Mix",
+          "quantity": "120.000",
+          "price": "199.00"
+        },
+        {
+          "product_id": 20,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Nescafe Classic Coffee 200g",
+          "quantity": "80.000",
+          "price": "399.00"
+        },
+        {
+          "product_id": 21,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Atomic Habits - James Clear",
+          "quantity": "50.000",
+          "price": "499.00"
+        },
+        {
+          "product_id": 22,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "The Alchemist - Paulo Coelho",
+          "quantity": "45.000",
+          "price": "399.00"
+        },
+        {
+          "product_id": 23,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Rich Dad Poor Dad",
+          "quantity": "40.000",
+          "price": "349.00"
+        },
+        {
+          "product_id": 24,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Classmate Notebook Pack",
+          "quantity": "200.000",
+          "price": "249.00"
+        },
+        {
+          "product_id": 25,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Dell Inspiron 15",
+          "quantity": "25.000",
+          "price": "42999.00"
+        },
+        {
+          "product_id": 26,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "HP Pavilion x360",
+          "quantity": "18.000",
+          "price": "54999.00"
+        },
+        {
+          "product_id": 27,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Lenovo ThinkPad E14",
+          "quantity": "12.000",
+          "price": "61999.00"
+        },
+        {
+          "product_id": 28,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Apple MacBook Air M2",
+          "quantity": "8.000",
+          "price": "99999.00"
+        },
+        {
+          "product_id": 29,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Samsung Galaxy S23",
+          "quantity": "30.000",
+          "price": "74999.00"
+        },
+        {
+          "product_id": 30,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "OnePlus Nord CE 3",
+          "quantity": "40.000",
+          "price": "26999.00"
+        },
+        {
+          "product_id": 31,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Apple iPhone 14",
+          "quantity": "15.000",
+          "price": "69999.00"
+        },
+        {
+          "product_id": 32,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Xiaomi Redmi Note 12",
+          "quantity": "50.000",
+          "price": "18999.00"
+        },
+        {
+          "product_id": 33,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Prestige Non-Stick Tawa",
+          "quantity": "60.000",
+          "price": "899.00"
+        },
+        {
+          "product_id": 34,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Milton Insulated Casserole",
+          "quantity": "45.000",
+          "price": "1299.00"
+        },
+        {
+          "product_id": 35,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Pigeon Induction Pressure Cooker",
+          "quantity": "35.000",
+          "price": "1899.00"
+        },
+        {
+          "product_id": 36,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Borosil Glass Storage Set",
+          "quantity": "55.000",
+          "price": "1099.00"
+        },
+        {
+          "product_id": 37,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Levi's Slim Fit Jeans",
+          "quantity": "70.000",
+          "price": "2199.00"
+        },
+        {
+          "product_id": 38,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Allen Solly Formal Shirt",
+          "quantity": "65.000",
+          "price": "1499.00"
+        },
+        {
+          "product_id": 39,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Puma Running Shoes",
+          "quantity": "40.000",
+          "price": "3499.00"
+        },
+        {
+          "product_id": 40,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Wildcraft Travel Backpack",
+          "quantity": "30.000",
+          "price": "1799.00"
+        },
+        {
+          "product_id": 41,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Tata Tea Gold 1kg",
+          "quantity": "100.000",
+          "price": "549.00"
+        },
+        {
+          "product_id": 42,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Amul Butter 500g",
+          "quantity": "90.000",
+          "price": "269.00"
+        },
+        {
+          "product_id": 43,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Haldiram's Namkeen Mix",
+          "quantity": "120.000",
+          "price": "199.00"
+        },
+        {
+          "product_id": 44,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Nescafe Classic Coffee 200g",
+          "quantity": "80.000",
+          "price": "399.00"
+        },
+        {
+          "product_id": 45,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Atomic Habits - James Clear",
+          "quantity": "50.000",
+          "price": "499.00"
+        },
+        {
+          "product_id": 46,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "The Alchemist - Paulo Coelho",
+          "quantity": "45.000",
+          "price": "399.00"
+        },
+        {
+          "product_id": 47,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Rich Dad Poor Dad",
+          "quantity": "40.000",
+          "price": "349.00"
+        },
+        {
+          "product_id": 48,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Classmate Notebook Pack",
+          "quantity": "200.000",
+          "price": "249.00"
+        }
+      ],
+      "output_table": {
+        "columns": [
+          "product_id",
+          "category",
+          "sub_category",
+          "product_name",
+          "quantity",
+          "price"
+        ],
+        "rows": [
+          [
+            1,
+            "Electronics",
+            "Laptops",
+            "Dell Inspiron 15",
+            "25.000",
+            "42999.00"
+          ],
+          [
+            2,
+            "Electronics",
+            "Laptops",
+            "HP Pavilion x360",
+            "18.000",
+            "54999.00"
+          ],
+          [
+            3,
+            "Electronics",
+            "Laptops",
+            "Lenovo ThinkPad E14",
+            "12.000",
+            "61999.00"
+          ],
+          [
+            4,
+            "Electronics",
+            "Laptops",
+            "Apple MacBook Air M2",
+            "8.000",
+            "99999.00"
+          ],
+          [
+            5,
+            "Electronics",
+            "Mobiles",
+            "Samsung Galaxy S23",
+            "30.000",
+            "74999.00"
+          ],
+          [
+            6,
+            "Electronics",
+            "Mobiles",
+            "OnePlus Nord CE 3",
+            "40.000",
+            "26999.00"
+          ],
+          [
+            7,
+            "Electronics",
+            "Mobiles",
+            "Apple iPhone 14",
+            "15.000",
+            "69999.00"
+          ],
+          [
+            8,
+            "Electronics",
+            "Mobiles",
+            "Xiaomi Redmi Note 12",
+            "50.000",
+            "18999.00"
+          ],
+          [
+            9,
+            "Home & Kitchen",
+            "Cookware",
+            "Prestige Non-Stick Tawa",
+            "60.000",
+            "899.00"
+          ],
+          [
+            10,
+            "Home & Kitchen",
+            "Cookware",
+            "Milton Insulated Casserole",
+            "45.000",
+            "1299.00"
+          ],
+          [
+            11,
+            "Home & Kitchen",
+            "Cookware",
+            "Pigeon Induction Pressure Cooker",
+            "35.000",
+            "1899.00"
+          ],
+          [
+            12,
+            "Home & Kitchen",
+            "Cookware",
+            "Borosil Glass Storage Set",
+            "55.000",
+            "1099.00"
+          ],
+          [
+            13,
+            "Fashion",
+            "Men's Clothing",
+            "Levi's Slim Fit Jeans",
+            "70.000",
+            "2199.00"
+          ],
+          [
+            14,
+            "Fashion",
+            "Men's Clothing",
+            "Allen Solly Formal Shirt",
+            "65.000",
+            "1499.00"
+          ],
+          [
+            15,
+            "Fashion",
+            "Men's Clothing",
+            "Puma Running Shoes",
+            "40.000",
+            "3499.00"
+          ],
+          [
+            16,
+            "Fashion",
+            "Men's Clothing",
+            "Wildcraft Travel Backpack",
+            "30.000",
+            "1799.00"
+          ],
+          [
+            17,
+            "Grocery",
+            "Snacks & Beverages",
+            "Tata Tea Gold 1kg",
+            "100.000",
+            "549.00"
+          ],
+          [
+            18,
+            "Grocery",
+            "Snacks & Beverages",
+            "Amul Butter 500g",
+            "90.000",
+            "269.00"
+          ],
+          [
+            19,
+            "Grocery",
+            "Snacks & Beverages",
+            "Haldiram's Namkeen Mix",
+            "120.000",
+            "199.00"
+          ],
+          [
+            20,
+            "Grocery",
+            "Snacks & Beverages",
+            "Nescafe Classic Coffee 200g",
+            "80.000",
+            "399.00"
+          ],
+          [
+            21,
+            "Books & Stationery",
+            "Books",
+            "Atomic Habits - James Clear",
+            "50.000",
+            "499.00"
+          ],
+          [
+            22,
+            "Books & Stationery",
+            "Books",
+            "The Alchemist - Paulo Coelho",
+            "45.000",
+            "399.00"
+          ],
+          [
+            23,
+            "Books & Stationery",
+            "Books",
+            "Rich Dad Poor Dad",
+            "40.000",
+            "349.00"
+          ],
+          [
+            24,
+            "Books & Stationery",
+            "Books",
+            "Classmate Notebook Pack",
+            "200.000",
+            "249.00"
+          ],
+          [
+            25,
+            "Electronics",
+            "Laptops",
+            "Dell Inspiron 15",
+            "25.000",
+            "42999.00"
+          ],
+          [
+            26,
+            "Electronics",
+            "Laptops",
+            "HP Pavilion x360",
+            "18.000",
+            "54999.00"
+          ],
+          [
+            27,
+            "Electronics",
+            "Laptops",
+            "Lenovo ThinkPad E14",
+            "12.000",
+            "61999.00"
+          ],
+          [
+            28,
+            "Electronics",
+            "Laptops",
+            "Apple MacBook Air M2",
+            "8.000",
+            "99999.00"
+          ],
+          [
+            29,
+            "Electronics",
+            "Mobiles",
+            "Samsung Galaxy S23",
+            "30.000",
+            "74999.00"
+          ],
+          [
+            30,
+            "Electronics",
+            "Mobiles",
+            "OnePlus Nord CE 3",
+            "40.000",
+            "26999.00"
+          ],
+          [
+            31,
+            "Electronics",
+            "Mobiles",
+            "Apple iPhone 14",
+            "15.000",
+            "69999.00"
+          ],
+          [
+            32,
+            "Electronics",
+            "Mobiles",
+            "Xiaomi Redmi Note 12",
+            "50.000",
+            "18999.00"
+          ],
+          [
+            33,
+            "Home & Kitchen",
+            "Cookware",
+            "Prestige Non-Stick Tawa",
+            "60.000",
+            "899.00"
+          ],
+          [
+            34,
+            "Home & Kitchen",
+            "Cookware",
+            "Milton Insulated Casserole",
+            "45.000",
+            "1299.00"
+          ],
+          [
+            35,
+            "Home & Kitchen",
+            "Cookware",
+            "Pigeon Induction Pressure Cooker",
+            "35.000",
+            "1899.00"
+          ],
+          [
+            36,
+            "Home & Kitchen",
+            "Cookware",
+            "Borosil Glass Storage Set",
+            "55.000",
+            "1099.00"
+          ],
+          [
+            37,
+            "Fashion",
+            "Men's Clothing",
+            "Levi's Slim Fit Jeans",
+            "70.000",
+            "2199.00"
+          ],
+          [
+            38,
+            "Fashion",
+            "Men's Clothing",
+            "Allen Solly Formal Shirt",
+            "65.000",
+            "1499.00"
+          ],
+          [
+            39,
+            "Fashion",
+            "Men's Clothing",
+            "Puma Running Shoes",
+            "40.000",
+            "3499.00"
+          ],
+          [
+            40,
+            "Fashion",
+            "Men's Clothing",
+            "Wildcraft Travel Backpack",
+            "30.000",
+            "1799.00"
+          ],
+          [
+            41,
+            "Grocery",
+            "Snacks & Beverages",
+            "Tata Tea Gold 1kg",
+            "100.000",
+            "549.00"
+          ],
+          [
+            42,
+            "Grocery",
+            "Snacks & Beverages",
+            "Amul Butter 500g",
+            "90.000",
+            "269.00"
+          ],
+          [
+            43,
+            "Grocery",
+            "Snacks & Beverages",
+            "Haldiram's Namkeen Mix",
+            "120.000",
+            "199.00"
+          ],
+          [
+            44,
+            "Grocery",
+            "Snacks & Beverages",
+            "Nescafe Classic Coffee 200g",
+            "80.000",
+            "399.00"
+          ],
+          [
+            45,
+            "Books & Stationery",
+            "Books",
+            "Atomic Habits - James Clear",
+            "50.000",
+            "499.00"
+          ],
+          [
+            46,
+            "Books & Stationery",
+            "Books",
+            "The Alchemist - Paulo Coelho",
+            "45.000",
+            "399.00"
+          ],
+          [
+            47,
+            "Books & Stationery",
+            "Books",
+            "Rich Dad Poor Dad",
+            "40.000",
+            "349.00"
+          ],
+          [
+            48,
+            "Books & Stationery",
+            "Books",
+            "Classmate Notebook Pack",
+            "200.000",
+            "249.00"
+          ]
+        ]
+      },
+      "calculation": null,
+      "error": null
+    },
+    "b1.2.1": {
+      "step_id": "1",
+      "branch_id": "b1",
+      "approach_rank": 2,
+      "source": "sql",
+      "resource": "operationsdb.product_metadata",
+      "description": "Retrieve all products with their metadata, looking for any fields that might indicate special pricing.",
+      "inputs": {},
+      "operation_summary": "Fetched 48 row(s) from operationsdb.product_metadata",
+      "output": [
+        {
+          "product_id": 1,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Dell Inspiron 15"
+        },
+        {
+          "product_id": 2,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "HP Pavilion x360"
+        },
+        {
+          "product_id": 3,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Lenovo ThinkPad E14"
+        },
+        {
+          "product_id": 4,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Apple MacBook Air M2"
+        },
+        {
+          "product_id": 5,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Samsung Galaxy S23"
+        },
+        {
+          "product_id": 6,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "OnePlus Nord CE 3"
+        },
+        {
+          "product_id": 7,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Apple iPhone 14"
+        },
+        {
+          "product_id": 8,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Xiaomi Redmi Note 12"
+        },
+        {
+          "product_id": 9,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Prestige Non-Stick Tawa"
+        },
+        {
+          "product_id": 10,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Milton Insulated Casserole"
+        },
+        {
+          "product_id": 11,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Pigeon Induction Pressure Cooker"
+        },
+        {
+          "product_id": 12,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Borosil Glass Storage Set"
+        },
+        {
+          "product_id": 13,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Levi's Slim Fit Jeans"
+        },
+        {
+          "product_id": 14,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Allen Solly Formal Shirt"
+        },
+        {
+          "product_id": 15,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Puma Running Shoes"
+        },
+        {
+          "product_id": 16,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Wildcraft Travel Backpack"
+        },
+        {
+          "product_id": 17,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Tata Tea Gold 1kg"
+        },
+        {
+          "product_id": 18,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Amul Butter 500g"
+        },
+        {
+          "product_id": 19,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Haldiram's Namkeen Mix"
+        },
+        {
+          "product_id": 20,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Nescafe Classic Coffee 200g"
+        },
+        {
+          "product_id": 21,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Atomic Habits - James Clear"
+        },
+        {
+          "product_id": 22,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "The Alchemist - Paulo Coelho"
+        },
+        {
+          "product_id": 23,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Rich Dad Poor Dad"
+        },
+        {
+          "product_id": 24,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Classmate Notebook Pack"
+        },
+        {
+          "product_id": 25,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Dell Inspiron 15"
+        },
+        {
+          "product_id": 26,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "HP Pavilion x360"
+        },
+        {
+          "product_id": 27,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Lenovo ThinkPad E14"
+        },
+        {
+          "product_id": 28,
+          "category": "Electronics",
+          "sub_category": "Laptops",
+          "product_name": "Apple MacBook Air M2"
+        },
+        {
+          "product_id": 29,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Samsung Galaxy S23"
+        },
+        {
+          "product_id": 30,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "OnePlus Nord CE 3"
+        },
+        {
+          "product_id": 31,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Apple iPhone 14"
+        },
+        {
+          "product_id": 32,
+          "category": "Electronics",
+          "sub_category": "Mobiles",
+          "product_name": "Xiaomi Redmi Note 12"
+        },
+        {
+          "product_id": 33,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Prestige Non-Stick Tawa"
+        },
+        {
+          "product_id": 34,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Milton Insulated Casserole"
+        },
+        {
+          "product_id": 35,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Pigeon Induction Pressure Cooker"
+        },
+        {
+          "product_id": 36,
+          "category": "Home & Kitchen",
+          "sub_category": "Cookware",
+          "product_name": "Borosil Glass Storage Set"
+        },
+        {
+          "product_id": 37,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Levi's Slim Fit Jeans"
+        },
+        {
+          "product_id": 38,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Allen Solly Formal Shirt"
+        },
+        {
+          "product_id": 39,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Puma Running Shoes"
+        },
+        {
+          "product_id": 40,
+          "category": "Fashion",
+          "sub_category": "Men's Clothing",
+          "product_name": "Wildcraft Travel Backpack"
+        },
+        {
+          "product_id": 41,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Tata Tea Gold 1kg"
+        },
+        {
+          "product_id": 42,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Amul Butter 500g"
+        },
+        {
+          "product_id": 43,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Haldiram's Namkeen Mix"
+        },
+        {
+          "product_id": 44,
+          "category": "Grocery",
+          "sub_category": "Snacks & Beverages",
+          "product_name": "Nescafe Classic Coffee 200g"
+        },
+        {
+          "product_id": 45,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Atomic Habits - James Clear"
+        },
+        {
+          "product_id": 46,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "The Alchemist - Paulo Coelho"
+        },
+        {
+          "product_id": 47,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Rich Dad Poor Dad"
+        },
+        {
+          "product_id": 48,
+          "category": "Books & Stationery",
+          "sub_category": "Books",
+          "product_name": "Classmate Notebook Pack"
+        }
+      ],
+      "output_table": {
+        "columns": [
+          "product_id",
+          "category",
+          "sub_category",
+          "product_name"
+        ],
+        "rows": [
+          [
+            1,
+            "Electronics",
+            "Laptops",
+            "Dell Inspiron 15"
+          ],
+          [
+            2,
+            "Electronics",
+            "Laptops",
+            "HP Pavilion x360"
+          ],
+          [
+            3,
+            "Electronics",
+            "Laptops",
+            "Lenovo ThinkPad E14"
+          ],
+          [
+            4,
+            "Electronics",
+            "Laptops",
+            "Apple MacBook Air M2"
+          ],
+          [
+            5,
+            "Electronics",
+            "Mobiles",
+            "Samsung Galaxy S23"
+          ],
+          [
+            6,
+            "Electronics",
+            "Mobiles",
+            "OnePlus Nord CE 3"
+          ],
+          [
+            7,
+            "Electronics",
+            "Mobiles",
+            "Apple iPhone 14"
+          ],
+          [
+            8,
+            "Electronics",
+            "Mobiles",
+            "Xiaomi Redmi Note 12"
+          ],
+          [
+            9,
+            "Home & Kitchen",
+            "Cookware",
+            "Prestige Non-Stick Tawa"
+          ],
+          [
+            10,
+            "Home & Kitchen",
+            "Cookware",
+            "Milton Insulated Casserole"
+          ],
+          [
+            11,
+            "Home & Kitchen",
+            "Cookware",
+            "Pigeon Induction Pressure Cooker"
+          ],
+          [
+            12,
+            "Home & Kitchen",
+            "Cookware",
+            "Borosil Glass Storage Set"
+          ],
+          [
+            13,
+            "Fashion",
+            "Men's Clothing",
+            "Levi's Slim Fit Jeans"
+          ],
+          [
+            14,
+            "Fashion",
+            "Men's Clothing",
+            "Allen Solly Formal Shirt"
+          ],
+          [
+            15,
+            "Fashion",
+            "Men's Clothing",
+            "Puma Running Shoes"
+          ],
+          [
+            16,
+            "Fashion",
+            "Men's Clothing",
+            "Wildcraft Travel Backpack"
+          ],
+          [
+            17,
+            "Grocery",
+            "Snacks & Beverages",
+            "Tata Tea Gold 1kg"
+          ],
+          [
+            18,
+            "Grocery",
+            "Snacks & Beverages",
+            "Amul Butter 500g"
+          ],
+          [
+            19,
+            "Grocery",
+            "Snacks & Beverages",
+            "Haldiram's Namkeen Mix"
+          ],
+          [
+            20,
+            "Grocery",
+            "Snacks & Beverages",
+            "Nescafe Classic Coffee 200g"
+          ],
+          [
+            21,
+            "Books & Stationery",
+            "Books",
+            "Atomic Habits - James Clear"
+          ],
+          [
+            22,
+            "Books & Stationery",
+            "Books",
+            "The Alchemist - Paulo Coelho"
+          ],
+          [
+            23,
+            "Books & Stationery",
+            "Books",
+            "Rich Dad Poor Dad"
+          ],
+          [
+            24,
+            "Books & Stationery",
+            "Books",
+            "Classmate Notebook Pack"
+          ],
+          [
+            25,
+            "Electronics",
+            "Laptops",
+            "Dell Inspiron 15"
+          ],
+          [
+            26,
+            "Electronics",
+            "Laptops",
+            "HP Pavilion x360"
+          ],
+          [
+            27,
+            "Electronics",
+            "Laptops",
+            "Lenovo ThinkPad E14"
+          ],
+          [
+            28,
+            "Electronics",
+            "Laptops",
+            "Apple MacBook Air M2"
+          ],
+          [
+            29,
+            "Electronics",
+            "Mobiles",
+            "Samsung Galaxy S23"
+          ],
+          [
+            30,
+            "Electronics",
+            "Mobiles",
+            "OnePlus Nord CE 3"
+          ],
+          [
+            31,
+            "Electronics",
+            "Mobiles",
+            "Apple iPhone 14"
+          ],
+          [
+            32,
+            "Electronics",
+            "Mobiles",
+            "Xiaomi Redmi Note 12"
+          ],
+          [
+            33,
+            "Home & Kitchen",
+            "Cookware",
+            "Prestige Non-Stick Tawa"
+          ],
+          [
+            34,
+            "Home & Kitchen",
+            "Cookware",
+            "Milton Insulated Casserole"
+          ],
+          [
+            35,
+            "Home & Kitchen",
+            "Cookware",
+            "Pigeon Induction Pressure Cooker"
+          ],
+          [
+            36,
+            "Home & Kitchen",
+            "Cookware",
+            "Borosil Glass Storage Set"
+          ],
+          [
+            37,
+            "Fashion",
+            "Men's Clothing",
+            "Levi's Slim Fit Jeans"
+          ],
+          [
+            38,
+            "Fashion",
+            "Men's Clothing",
+            "Allen Solly Formal Shirt"
+          ],
+          [
+            39,
+            "Fashion",
+            "Men's Clothing",
+            "Puma Running Shoes"
+          ],
+          [
+            40,
+            "Fashion",
+            "Men's Clothing",
+            "Wildcraft Travel Backpack"
+          ],
+          [
+            41,
+            "Grocery",
+            "Snacks & Beverages",
+            "Tata Tea Gold 1kg"
+          ],
+          [
+            42,
+            "Grocery",
+            "Snacks & Beverages",
+            "Amul Butter 500g"
+          ],
+          [
+            43,
+            "Grocery",
+            "Snacks & Beverages",
+            "Haldiram's Namkeen Mix"
+          ],
+          [
+            44,
+            "Grocery",
+            "Snacks & Beverages",
+            "Nescafe Classic Coffee 200g"
+          ],
+          [
+            45,
+            "Books & Stationery",
+            "Books",
+            "Atomic Habits - James Clear"
+          ],
+          [
+            46,
+            "Books & Stationery",
+            "Books",
+            "The Alchemist - Paulo Coelho"
+          ],
+          [
+            47,
+            "Books & Stationery",
+            "Books",
+            "Rich Dad Poor Dad"
+          ],
+          [
+            48,
+            "Books & Stationery",
+            "Books",
+            "Classmate Notebook Pack"
+          ]
+        ]
+      },
+      "calculation": null,
+      "error": null
+    },
+    "b1.3.1": {
+      "step_id": "1",
+      "branch_id": "b1",
+      "approach_rank": 3,
+      "source": "rag",
+      "resource": "financial_policies.md",
+      "description": "Search for documents related to pricing policies.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from financial_policies.md",
+      "output": [
+        {
+          "text": "## 9. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 customer-facing refund terms and timelines\n- [order_processing_sop.md](order_processing_sop.md) \u2014 order and returns lifecycle that triggers financial events\n- [customer_support_sop.md](customer_support_sop.md) \u2014 agent refund authority limits\n- [legal_policies.md](legal_policies.md) \u2014 tax, retention, and regulatory obligations",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 9. Related Documents",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "# eKart Financial Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Finance & Accounting\n**Audience:** Finance, Accounting, Fulfillment Ops, Customer Support leads",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "## 5. Seller Payouts  \n- Marketplace sellers are paid out on a **rolling 14-day cycle**: funds from a delivered order become eligible for payout 14 days after delivery confirmation, provided no return or dispute is open against that order.\n- If a return or chargeback is initiated **after** a seller has already been paid out for that order, the refunded/disputed amount is deducted from the seller's next payout cycle rather than requiring the seller to remit funds separately.\n- Sellers with a chargeback rate exceeding **1%** of monthly transaction volume are moved to a 30-day payout cycle and subject to a compliance review.",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 5. Seller Payouts",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "## 8. Financial Controls and Audit  \n- All refunds above **$1,000** require a second Finance approver before disbursement, regardless of which support tier initiated the request.\n- Monthly reconciliation compares OMS-recorded refunds against actual payment gateway/bank settlement records; discrepancies beyond a $500 aggregate threshold are investigated within 5 business days.\n- Transaction and refund records are retained for **7 years** per [legal_policies.md](legal_policies.md) Section 4.3 to satisfy tax audit requirements.",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 8. Financial Controls and Audit",
+          "score": 0.015625
+        },
+        {
+          "text": "## 2. Payment Capture  \n- **Authorization vs. Capture:** For prepaid orders (card, digital wallet), payment is *authorized* at checkout but only *captured* (i.e., funds actually collected) once the order transitions to \"Processing\" in the OMS, confirming inventory availability (see [order_processing_sop.md](order_processing_sop.md) Section 3).\n- **Authorization Expiry:** Card authorizations typically expire after 7 days if not captured (varies by issuing bank). If an order remains \"On Hold\" beyond this window, the OMS automatically re-authorizes the payment method before capture; a failed re-authorization cancels the order line.",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 2. Payment Capture",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    },
+    "b1.3.2": {
+      "step_id": "2",
+      "branch_id": "b1",
+      "approach_rank": 3,
+      "source": "rag",
+      "resource": "legal_policies.md",
+      "description": "Search for documents related to legal policies that might contain pricing rules.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from legal_policies.md",
+      "output": [
+        {
+          "text": "## 7. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 customer-facing return terms referenced by regional consumer rights above\n- [customer_support_sop.md](customer_support_sop.md) \u2014 escalation paths for legal/regulatory/safety contacts\n- [financial_policies.md](financial_policies.md) \u2014 tax and financial record retention supporting Section 4.3",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 7. Related Documents",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "# eKart Legal Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Legal & Compliance\n**Audience:** All employees; customer-facing teams in particular  \n> This document summarizes eKart's legal obligations and internal policy positions relating to customer transactions, data privacy, and marketplace conduct. It is a reference for internal decision-making and does not itself constitute the full legal terms shown to customers (see the public Terms of Service and Privacy Policy for the customer-facing versions).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "### 1.3 India\n- Under the Consumer Protection (E-Commerce) Rules, eKart must display country of origin, seller details (for marketplace items), and a grievance redressal mechanism on every listing.\n- A Grievance Officer is designated per the Rules; unresolved complaints escalated to Tier 3 Support (see [customer_support_sop.md](customer_support_sop.md) Section 4) that remain open beyond **30 days** are automatically routed to the Grievance Officer.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.3 India",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "### 1.4 General Principle\nWhere a region's statutory consumer protection right is more generous to the customer than eKart's standard policy (longer return window, broader refund rights, etc.), the statutory right governs for customers in that region. Support agents should consult the region-specific override table maintained by Legal (linked from the internal policy portal) when a customer cites local law that appears to conflict with standard policy.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.4 General Principle",
+          "score": 0.015625
+        },
+        {
+          "text": "## 6. Regulatory and Litigation Holds  \n- Any employee who receives a subpoena, litigation hold notice, or regulatory inquiry directed at eKart must forward it unopened/unanswered to Legal within 24 hours and must not independently respond to the requesting party.\n- Once Legal issues a litigation hold notice for a specific customer, order, or data set, the relevant records are exempted from standard retention/deletion schedules until the hold is lifted, regardless of any pending customer deletion request.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 6. Regulatory and Litigation Holds",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    },
+    "b2.1.s2": {
+      "step_id": "s2",
+      "branch_id": "b2",
+      "approach_rank": 1,
+      "source": "rag",
+      "resource": "legal_policies.md",
+      "description": "Get the legal policies document which may contain refund information.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from legal_policies.md",
+      "output": [
+        {
+          "text": "# eKart Legal Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Legal & Compliance\n**Audience:** All employees; customer-facing teams in particular  \n> This document summarizes eKart's legal obligations and internal policy positions relating to customer transactions, data privacy, and marketplace conduct. It is a reference for internal decision-making and does not itself constitute the full legal terms shown to customers (see the public Terms of Service and Privacy Policy for the customer-facing versions).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "### 1.2 United States\n- No federal statutory cooling-off period applies to standard e-commerce purchases (the FTC's 3-day cooling-off rule applies only to certain door-to-door sales, which does not apply to eKart).\n- State-level rules may impose additional requirements on gift card expiration (most states prohibit expiration under 5 years) and on restocking fees (several states require restocking fees to be disclosed at time of sale, which eKart does via the category table in [refund_return_policy.md](refund_return_policy.md) Section 2.2).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.2 United States",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "## 6. Regulatory and Litigation Holds  \n- Any employee who receives a subpoena, litigation hold notice, or regulatory inquiry directed at eKart must forward it unopened/unanswered to Legal within 24 hours and must not independently respond to the requesting party.\n- Once Legal issues a litigation hold notice for a specific customer, order, or data set, the relevant records are exempted from standard retention/deletion schedules until the hold is lifted, regardless of any pending customer deletion request.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 6. Regulatory and Litigation Holds",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "### 1.4 General Principle\nWhere a region's statutory consumer protection right is more generous to the customer than eKart's standard policy (longer return window, broader refund rights, etc.), the statutory right governs for customers in that region. Support agents should consult the region-specific override table maintained by Legal (linked from the internal policy portal) when a customer cites local law that appears to conflict with standard policy.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.4 General Principle",
+          "score": 0.015625
+        },
+        {
+          "text": "## 4. Data Protection and Privacy  \n### 4.1 Data Subject Rights\nCustomers in jurisdictions covered by GDPR, UK GDPR, CCPA/CPRA, or comparable frameworks may request:\n- **Access** to the personal data eKart holds about them.\n- **Correction** of inaccurate personal data.\n- **Deletion** of their personal data, subject to legal retention requirements (e.g., transaction records required for tax/audit purposes are retained per Section 4.3 even after a deletion request).\n- **Portability** of their data in a machine-readable format.\n- **Opt-out** of the sale/sharing of personal data for targeted advertising (CCPA/CPRA).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 4. Data Protection and Privacy > 4.1 Data Subject Rights",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    },
+    "b2.2.1": {
+      "step_id": "1",
+      "branch_id": "b2",
+      "approach_rank": 2,
+      "source": "rag",
+      "resource": "financial_policies.md",
+      "description": "Retrieve information about refund accounting from the financial policies document.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from financial_policies.md",
+      "output": [
+        {
+          "text": "# eKart Financial Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Finance & Accounting\n**Audience:** Finance, Accounting, Fulfillment Ops, Customer Support leads",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "## 1. Purpose  \nThis document defines how eKart handles payment capture, refund accounting, chargebacks, seller payouts, and tax collection. It complements the customer-facing terms in [refund_return_policy.md](refund_return_policy.md) by describing the internal financial mechanics behind those customer commitments.",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 1. Purpose",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "## 4. Refund Accounting  \n### 4.1 Refund Triggers and Timing\nRefunds are triggered by one of the following events, each initiating the accounting entries below:\n1. Return QC completion (\"Return Complete\" status per [order_processing_sop.md](order_processing_sop.md) Section 9).\n2. Support-approved goodwill refund or policy exception ([customer_support_sop.md](customer_support_sop.md) Section 4).\n3. Automatic system refund (order cancellation, undeliverable package, lost-in-transit resolution).",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 4. Refund Accounting > 4.1 Refund Triggers and Timing",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "### 4.2 Accounting Treatment\n- A refund reverses the original revenue recognition entry for the returned item(s), including the proportional tax collected, and is booked as a **contra-revenue** entry (Sales Returns and Allowances) rather than a new expense.\n- Shipping charges are refunded only when the return reason is attributable to eKart or the seller (damaged, defective, wrong item, delivery failure); customer-initiated \"no longer needed\" returns do not refund original shipping charges, consistent with [refund_return_policy.md](refund_return_policy.md).\n- Restocking fees deducted per policy are recognized as fee revenue at the time the partial refund is issued, not netted silently against the refund line \u2014 this preserves an auditable record of the fee.",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 4. Refund Accounting > 4.2 Accounting Treatment",
+          "score": 0.015625
+        },
+        {
+          "text": "## 7. Store Credit Liability  \n- Issued Store Credit is recorded as a financial liability (deferred revenue) on eKart's balance sheet until redeemed or, where legally permitted, escheated as unclaimed property after the statutory dormancy period (varies by US state, typically 3\u20135 years; Store Credit does not expire per customer-facing policy, but unclaimed-property law may still require escheatment reporting).\n- Promotional Store Credit (issued as a marketing incentive rather than a refund) is tracked separately from refund-issued Store Credit for revenue-recognition purposes, since promotional credit redemption is booked as a discount against revenue rather than a liability settlement.",
+          "source_file": "financial_policies.md",
+          "header_path": "eKart Financial Policies > 7. Store Credit Liability",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    },
+    "b2.2.2": {
+      "step_id": "2",
+      "branch_id": "b2",
+      "approach_rank": 2,
+      "source": "rag",
+      "resource": "legal_policies.md",
+      "description": "Retrieve information about legal obligations and policy positions related to customer transactions from the legal policies document.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from legal_policies.md",
+      "output": [
+        {
+          "text": "# eKart Legal Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Legal & Compliance\n**Audience:** All employees; customer-facing teams in particular  \n> This document summarizes eKart's legal obligations and internal policy positions relating to customer transactions, data privacy, and marketplace conduct. It is a reference for internal decision-making and does not itself constitute the full legal terms shown to customers (see the public Terms of Service and Privacy Policy for the customer-facing versions).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "## 6. Regulatory and Litigation Holds  \n- Any employee who receives a subpoena, litigation hold notice, or regulatory inquiry directed at eKart must forward it unopened/unanswered to Legal within 24 hours and must not independently respond to the requesting party.\n- Once Legal issues a litigation hold notice for a specific customer, order, or data set, the relevant records are exempted from standard retention/deletion schedules until the hold is lifted, regardless of any pending customer deletion request.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 6. Regulatory and Litigation Holds",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "### 1.4 General Principle\nWhere a region's statutory consumer protection right is more generous to the customer than eKart's standard policy (longer return window, broader refund rights, etc.), the statutory right governs for customers in that region. Support agents should consult the region-specific override table maintained by Legal (linked from the internal policy portal) when a customer cites local law that appears to conflict with standard policy.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.4 General Principle",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "## 7. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 customer-facing return terms referenced by regional consumer rights above\n- [customer_support_sop.md](customer_support_sop.md) \u2014 escalation paths for legal/regulatory/safety contacts\n- [financial_policies.md](financial_policies.md) \u2014 tax and financial record retention supporting Section 4.3",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 7. Related Documents",
+          "score": 0.015625
+        },
+        {
+          "text": "## 4. Data Protection and Privacy  \n### 4.1 Data Subject Rights\nCustomers in jurisdictions covered by GDPR, UK GDPR, CCPA/CPRA, or comparable frameworks may request:\n- **Access** to the personal data eKart holds about them.\n- **Correction** of inaccurate personal data.\n- **Deletion** of their personal data, subject to legal retention requirements (e.g., transaction records required for tax/audit purposes are retained per Section 4.3 even after a deletion request).\n- **Portability** of their data in a machine-readable format.\n- **Opt-out** of the sale/sharing of personal data for targeted advertising (CCPA/CPRA).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 4. Data Protection and Privacy > 4.1 Data Subject Rights",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    },
+    "b2.3.2": {
+      "step_id": "2",
+      "branch_id": "b2",
+      "approach_rank": 3,
+      "source": "rag",
+      "resource": "legal_policies.md",
+      "description": "Retrieve the legal policies document.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from legal_policies.md",
+      "output": [
+        {
+          "text": "# eKart Legal Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Legal & Compliance\n**Audience:** All employees; customer-facing teams in particular  \n> This document summarizes eKart's legal obligations and internal policy positions relating to customer transactions, data privacy, and marketplace conduct. It is a reference for internal decision-making and does not itself constitute the full legal terms shown to customers (see the public Terms of Service and Privacy Policy for the customer-facing versions).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "## 6. Regulatory and Litigation Holds  \n- Any employee who receives a subpoena, litigation hold notice, or regulatory inquiry directed at eKart must forward it unopened/unanswered to Legal within 24 hours and must not independently respond to the requesting party.\n- Once Legal issues a litigation hold notice for a specific customer, order, or data set, the relevant records are exempted from standard retention/deletion schedules until the hold is lifted, regardless of any pending customer deletion request.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 6. Regulatory and Litigation Holds",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "### 1.4 General Principle\nWhere a region's statutory consumer protection right is more generous to the customer than eKart's standard policy (longer return window, broader refund rights, etc.), the statutory right governs for customers in that region. Support agents should consult the region-specific override table maintained by Legal (linked from the internal policy portal) when a customer cites local law that appears to conflict with standard policy.",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.4 General Principle",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "## 4. Data Protection and Privacy  \n### 4.1 Data Subject Rights\nCustomers in jurisdictions covered by GDPR, UK GDPR, CCPA/CPRA, or comparable frameworks may request:\n- **Access** to the personal data eKart holds about them.\n- **Correction** of inaccurate personal data.\n- **Deletion** of their personal data, subject to legal retention requirements (e.g., transaction records required for tax/audit purposes are retained per Section 4.3 even after a deletion request).\n- **Portability** of their data in a machine-readable format.\n- **Opt-out** of the sale/sharing of personal data for targeted advertising (CCPA/CPRA).",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 4. Data Protection and Privacy > 4.1 Data Subject Rights",
+          "score": 0.015625
+        },
+        {
+          "text": "## 7. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 customer-facing return terms referenced by regional consumer rights above\n- [customer_support_sop.md](customer_support_sop.md) \u2014 escalation paths for legal/regulatory/safety contacts\n- [financial_policies.md](financial_policies.md) \u2014 tax and financial record retention supporting Section 4.3",
+          "source_file": "legal_policies.md",
+          "header_path": "eKart Legal Policies > 7. Related Documents",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    }
+  },
+  "trace": [
+    "guardrail: passed",
+    "intent: 85 resource(s) available to role=manager",
+    "planning: 2 branch(es)",
+    "branch b1 (What are our special pricing rules?): 3 approach(es), trying rank 1 [Look up product pricing rules, which may include special pricing.] (confidence 0.70)",
+    "  step s1 -> [sql] operationsdb.get_products",
+    "branch b2 (What do the legal policies say about refunds?): 3 approach(es), trying rank 1 [Retrieve information about refund policies from the legal policies document.] (confidence 0.90)",
+    "  step s2 -> [rag] legal_policies.md",
+    "sql[s1]: 48 row(s) from operationsdb.get_products",
+    "branch b1 approach 1: failed \u2014 The pricing rules are not specified. The query returned product information and prices, not pricing rules. There is no information about special pricing, discounts, or any other pricing rules.",
+    "branch b1: refining approach 2 after rank 1 failure",
+    "sql[1]: 48 row(s) from operationsdb.product_metadata",
+    "branch b1 approach 2: failed \u2014 The product metadata does not contain any information about special pricing rules. It only contains product details like category, sub-category, and name.",
+    "branch b1: refining approach 3 after rank 2 failure",
+    "rag[1]: 5 chunk(s) from financial_policies.md",
+    "rag[2]: 5 chunk(s) from legal_policies.md",
+    "branch b1 approach 3: failed \u2014 The search results contain information about seller payouts, refunds, and general legal policies, but do not specify any special pricing rules.",
+    "rag[s2]: 5 chunk(s) from legal_policies.md",
+    "branch b2 approach 1: failed \u2014 The legal policies document mentions that statutory consumer protection rights may grant broader refund rights than eKart's standard policy, and that support agents should consult a region-specific override table. However, the document itself does not detail what these broader refund rights are or provide the override table. Therefore, the specific details about refunds according to legal policies are missing.",
+    "branch b2: refining approach 2 after rank 1 failure",
+    "rag[1]: 5 chunk(s) from financial_policies.md",
+    "rag[2]: 5 chunk(s) from legal_policies.md",
+    "branch b2 approach 2: failed \u2014 The legal policies document mentions that regional statutory consumer protection rights may grant broader refund rights than standard policy, and that agents should consult a region-specific override table. However, this table and the specific details of these broader rights are not provided in the retrieved documents.",
+    "branch b2: refining approach 3 after rank 2 failure",
+    "rag[2]: 5 chunk(s) from legal_policies.md",
+    "branch b2 approach 3: failed \u2014 The legal policies document mentions that statutory consumer protection rights may grant broader refund rights than the standard policy, and advises consulting a region-specific override table. However, it does not detail these rights or the contents of the override table, nor does it provide the customer-facing refund policy itself.",
+    "synthesis: generated answer from 3 step result(s) across 2 branch(es)"
+  ],
+  "answer": "Special pricing rules are not detailed in the provided documents. However, for refunds, if a region's statutory consumer protection rights offer more favorable terms than eKart's standard policy, such as a longer return window or broader refund rights, those statutory rights will apply to customers in that region. Support agents should refer to a region-specific override table maintained by Legal when a customer cites local law that seems to conflict with the standard policy.",
+  "view_mode": "stepper"
+}

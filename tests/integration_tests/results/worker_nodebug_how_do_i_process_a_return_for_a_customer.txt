@@ -1,0 +1,222 @@
+Input:
+username: bob
+role: worker
+debug mode: False
+prompt: How do I process a return for a customer?
+
+Output:
+{
+  "query": "How do I process a return for a customer?",
+  "role": "worker",
+  "debug": false,
+  "guardrail_passed": true,
+  "catalog": [
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/customer/{customer_id}",
+      "description": "ALL addresses for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /addresses/{customer_address_id}",
+      "description": "ONE address, given its known customer_address_id (not a customer_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/customer/{customer_id}",
+      "description": "ALL payment methods for ONE customer, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /payment-methods/{payment_method_id}",
+      "description": "ONE payment method, given its known payment_method_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "customer:GET /users/{customer_id}",
+      "description": "ONE customer's profile, given their known customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/by-order/{order_id}/status",
+      "description": "Delivery status and date for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /deliveries/{delivery_id}",
+      "description": "ONE delivery, given its known delivery_id (not an order_id \u2014 use by-order/{order_id}/status for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/by-order/{order_id}",
+      "description": "The invoice for ONE order, given its known order_id \u2014 this is how to find an order's payment_id (invoice.payment_id), since there is no direct get-payment-by-order."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /invoices/{invoice_id}",
+      "description": "ONE invoice, given its known invoice_id (not an order_id \u2014 use by-order/{order_id} for that)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/by-order/{order_id}",
+      "description": "ALL product line items for ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /order-products/{order_product_id}",
+      "description": "ONE order-product line row, given its known order_product_id (not an order_id or product_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/customer/{customer_id}",
+      "description": "ALL orders for ONE customer, given their known customer_id. Self-scoped: a customer can only pass their own customer_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/me",
+      "description": "ALL orders for the calling customer \u2014 no id/params needed, resolved from the caller's own verified identity. Customer role only; use GET /orders/customer/{customer_id} for staff looking up a specific customer."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}",
+      "description": "ONE order, given its known order_id. Does not include payment/invoice info \u2014 those are separate resources referencing the same order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/complete",
+      "description": "ONE order plus its product line items (with unit prices), given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /orders/{order_id}/status",
+      "description": "Just the status of ONE order, given its known order_id."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /payments/{payment_id}",
+      "description": "ONE payment, given its known payment_id (not an order_id \u2014 there is no get-payment-by-order; fetch the order's invoice first, which carries payment_id)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products",
+      "description": "ALL products in the catalog, including current inventory/stock level\n    (the `quantity` field on each) \u2014 no filter, no params."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/category/{category}",
+      "description": "ALL products (including current inventory/stock level, the `quantity`\n    field) in ONE exact category (case-sensitive equality, not fuzzy)."
+    },
+    {
+      "source": "api",
+      "resource_id": "operations:GET /products/{product_id}",
+      "description": "ONE product, given its known product_id."
+    },
+    {
+      "source": "rag",
+      "resource_id": "customer_support_sop.md",
+      "description": "This SOP standardizes how customer support agents handle inbound contacts \u2014 chat, email, phone, and social media \u2014 across the full range of eKart customer issues. It defines channel SLAs, ticket categorization, escalation paths, and agent authority limits so that customers receive consistent resolutions regardless of which agent or channel they use."
+    },
+    {
+      "source": "rag",
+      "resource_id": "order_processing_sop.md",
+      "description": "This SOP defines the end-to-end lifecycle of an order from the moment it is placed to the moment it is delivered (or returned), including the handoffs between the order management system, warehouse management system (WMS), and carrier network. It exists to ensure consistent handling, accurate status tracking, and predictable SLAs across all fulfillment centers (FCs)."
+    }
+  ],
+  "branches": {
+    "b1": {
+      "branch_id": "b1",
+      "sub_query": "How to process a return for a customer?",
+      "approaches": [
+        {
+          "rank": 1,
+          "strategy": "Consult the customer support SOP for return processing procedures.",
+          "confidence": 0.9,
+          "steps": [
+            {
+              "step_id": "s1",
+              "description": "Retrieve the customer support SOP document.",
+              "source": "rag",
+              "resource": "customer_support_sop.md",
+              "input_params": [],
+              "input_refs": [],
+              "depends_on": [],
+              "branch_id": "b1",
+              "approach_rank": 1
+            }
+          ],
+          "status": "succeeded",
+          "failure_reason": null
+        },
+        {
+          "rank": 2,
+          "strategy": "Consult the order processing SOP for return-related lifecycle information.",
+          "confidence": 0.7,
+          "steps": [],
+          "status": "pending",
+          "failure_reason": null
+        }
+      ]
+    }
+  },
+  "active_branch_id": "",
+  "attempt_index": 0,
+  "step_results": {
+    "b1.1.s1": {
+      "step_id": "s1",
+      "branch_id": "b1",
+      "approach_rank": 1,
+      "source": "rag",
+      "resource": "customer_support_sop.md",
+      "description": "Retrieve the customer support SOP document.",
+      "inputs": {},
+      "operation_summary": "Retrieved 5 chunk(s) from customer_support_sop.md",
+      "output": [
+        {
+          "text": "# eKart Customer Support \u2014 Standard Operating Procedure  \n**Document Type:** Internal SOP\n**Effective Date:** January 1, 2026\n**Owning Team:** Customer Experience & Trust\n**Audience:** Support agents (Tier 1\u20133), team leads, quality analysts",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure",
+          "score": 0.01639344262295082
+        },
+        {
+          "text": "## 1. Purpose  \nThis SOP standardizes how customer support agents handle inbound contacts \u2014 chat, email, phone, and social media \u2014 across the full range of eKart customer issues. It defines channel SLAs, ticket categorization, escalation paths, and agent authority limits so that customers receive consistent resolutions regardless of which agent or channel they use.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 1. Purpose",
+          "score": 0.016129032258064516
+        },
+        {
+          "text": "## 7. Quality Assurance  \n- 5% of all resolved tickets are randomly sampled weekly for QA review against this SOP.\n- QA scoring covers: accuracy of resolution, adherence to authority limits, tone/empathy, and SLA compliance.\n- Agents scoring below 85% on two consecutive QA cycles are placed on a coaching plan with their team lead.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 7. Quality Assurance",
+          "score": 0.015873015873015872
+        },
+        {
+          "text": "### 6.3 Payment Dispute\n1. Verify the transaction in the payment gateway dashboard \u2014 confirm whether it was a single authorization, a duplicate charge, or a legitimate separate order.\n2. Duplicate/erroneous charges are refunded immediately upon confirmation; no need to wait for customer to file a bank chargeback.\n3. If the customer has already filed a chargeback with their bank, do not issue a duplicate refund \u2014 flag the ticket for Finance reconciliation (see [financial_policies.md](financial_policies.md) Section 6) and inform the customer the chargeback is being processed by their bank.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.3 Payment Dispute",
+          "score": 0.015625
+        },
+        {
+          "text": "### 6.2 Return / Refund Request\n1. Confirm the item and reason are eligible under [refund_return_policy.md](refund_return_policy.md).\n2. If eligible, initiate the return in the OMS on the customer's behalf (or walk them through self-service) and confirm the refund method and expected timeline per policy Section 3.\n3. If the customer disputes eligibility (e.g., past the return window due to a claimed delivery delay), verify the claim against tracking data before making a goodwill exception decision within the agent's authority tier.",
+          "source_file": "customer_support_sop.md",
+          "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.2 Return / Refund Request",
+          "score": 0.015384615384615385
+        }
+      ],
+      "output_table": null,
+      "calculation": null,
+      "error": null
+    }
+  },
+  "trace": [
+    "guardrail: passed",
+    "intent: 22 resource(s) available to role=worker",
+    "planning: 1 branch(es)",
+    "branch b1 (How to process a return for a customer?): 2 approach(es), trying rank 1 [Consult the customer support SOP for return processing procedures.] (confidence 0.90)",
+    "  step s1 -> [rag] customer_support_sop.md",
+    "rag[s1]: 5 chunk(s) from customer_support_sop.md",
+    "branch b1 approach 1: succeeded",
+    "synthesis: generated answer from 1 step result(s) across 1 branch(es)"
+  ],
+  "answer": "To process a return for a customer, first confirm that the item and the reason for return are eligible according to the refund and return policy. If the request is eligible, initiate the return in the Order Management System (OMS) for the customer, or guide them through the self-service process. Then, confirm the refund method and the expected timeline for the refund, as outlined in the policy. If the customer disputes the eligibility, for example, if they are past the return window due to a claimed delay in delivery, verify their claim using tracking data before deciding whether to make a goodwill exception within your authority level.",
+  "view_mode": "stepper"
+}
