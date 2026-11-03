@@ -1,0 +1,32 @@
+{
+  "customer_support_sop.md": {
+    "hash": "2d8ac34392065430dfaeb41f409b022ebe1048880fefd912db9d37e50dff06c0",
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  "financial_policies.md": {
+    "hash": "4c4c4e3c3c9d1eb2ec8e2fd554fba8bb0f0f64d888ea6887e799e43ecdfc3dd5",
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  "legal_policies.md": {
+    "hash": "71f0e80234fcd566f366f48dc4abf214eca98250c1cbaf8b575af7a3ab725d05",
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  "order_processing_sop.md": {
+    "hash": "b69d9696e33dc9e7708cddaff0de64fd1d585bced82f5e442827fc2ac285e19e",
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  "refund_return_policy.md": {
+    "hash": "7820fb9f0dc98d732357e9cc4b814b540817a176ab95004dd922bfb139b4bb02",
+    "allowed_roles": [
+      "customer"
+    ]
+  }
+}

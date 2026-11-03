@@ -1,0 +1,182 @@
+# Wraps the manual `docker run` from project-notes/DbSetup.md in compose, using
+# the SAME container name and volume so it adopts the already-running Postgres
+# instance and its data (customerdb, operationsdb) instead of starting fresh.
+#
+# One-time switch-over from the manual container:
+#   docker stop docker-postgre && docker rm docker-postgre
+#   docker compose up -d
+#
+# membershipdb does not exist on that volume yet (it predates this file); see
+# project-notes/DbSetup.md (or scripts/recreate-databases.ps1) to create and
+# seed all three databases.
+#
+# DB passwords below must match db_password in the schema scripts
+# (integration/*/db/*_schema.sql) — rotate both together for any real
+# deployment. Containers reach Postgres via the `postgres` service name, not
+# `localhost` (that only works when running an API directly on the host, per
+# .env.example).
+#
+# Login/logout/verify (POST /auth/token, /auth/logout, /auth/verify) live only
+# on auth-api (port 8003) — see integration/auth/api/main.py. It is the only
+# service that talks to membershipdb; it caches each token's identity in Redis
+# on login (auth:{jti}) and /auth/verify checks that cache, not the DB.
+# shared-api, customer-api and operations-api all call auth-api over HTTP
+# (see integration/shared/auth_client.py, integration/customer/api/auth_client.py,
+# integration/operation/api/auth_client.py) instead of verifying JWTs in-process.
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: docker-postgre
+    # Default 100 is exhausted by the API services' own pools alone (each
+    # asyncpg.create_pool(...) call defaults to min_size=10, opened eagerly,
+    # and there are ~9 such pools across auth-api/customer-api/operations-api/
+    # caching-worker) before anything else (e.g. sql_service) opens one.
+    command: ["postgres", "-c", "max_connections=300"]
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - docker-postgre-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-cache-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+
+  auth-api:
+    build:
+      context: .
+      dockerfile: integration/auth/api/Dockerfile
+    container_name: auth-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      MEMBERSHIP_DB_URL: postgresql://auth_service:Abc123@postgres:5432/membershipdb
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES:-60}
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8003:8000"
+
+  shared-api:
+    build:
+      context: .
+      dockerfile: integration/shared/Dockerfile
+    container_name: shared-api
+    depends_on:
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      auth-api:
+        condition: service_started
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      QDRANT_URL: http://qdrant:6333
+      QDRANT_COLLECTION: ${QDRANT_COLLECTION:-efsse_docs}
+      AUTH_API_BASE_URL: http://auth-api:8000
+    ports:
+      - "8002:8000"
+    volumes:
+      # Uploaded docs and the ingestion manifest/corpus persist on the host so
+      # they survive container restarts and stay visible to host-side scripts
+      # (scripts/ingest_documents.py, rag_ingestion/build_index.py).
+      - ./documents:/app/documents
+      - ./rag_ingestion/data:/app/rag_ingestion/data
+
+  customer-api:
+    build:
+      context: .
+      dockerfile: integration/customer/api/Dockerfile
+    container_name: customer-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      auth-api:
+        condition: service_started
+    environment:
+      CUSTOMERDB_CUSTOMER_URL: postgresql://customer:Abc123@postgres:5432/customerdb
+      CUSTOMERDB_WORKER_URL: postgresql://worker:Abc123@postgres:5432/customerdb
+      CUSTOMERDB_MANAGER_URL: postgresql://manager:Abc123@postgres:5432/customerdb
+      AUTH_API_BASE_URL: http://auth-api:8000
+    ports:
+      - "8000:8000"
+
+  operations-api:
+    build:
+      context: .
+      dockerfile: integration/operation/api/Dockerfile
+    container_name: operations-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      customer-api:
+        condition: service_started
+      auth-api:
+        condition: service_started
+    environment:
+      OPERATIONSDB_CUSTOMER_URL: postgresql://customer:Abc123@postgres:5432/operationsdb
+      OPERATIONSDB_WORKER_URL: postgresql://worker:Abc123@postgres:5432/operationsdb
+      OPERATIONSDB_MANAGER_URL: postgresql://manager:Abc123@postgres:5432/operationsdb
+      CUSTOMER_API_BASE_URL: http://customer-api:8000
+      AUTH_API_BASE_URL: http://auth-api:8000
+    ports:
+      - "8001:8000"
+
+  caching-worker:
+    build:
+      context: .
+      dockerfile: integration/caching_worker/Dockerfile
+    container_name: caching-worker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      CUSTOMERDB_WORKER_URL: postgresql://worker:Abc123@postgres:5432/customerdb
+      OPERATIONSDB_WORKER_URL: postgresql://worker:Abc123@postgres:5432/operationsdb
+      REDIS_URL: redis://redis:6379/0
+      # Not actually connected to — importing customer-api's and operations-api's
+      # `app` objects (for loader.py's route reflection) pulls in their config
+      # modules, which validate these at import time even though this process
+      # never opens the pools or calls the API over HTTP.
+      CUSTOMERDB_CUSTOMER_URL: postgresql://customer:Abc123@postgres:5432/customerdb
+      CUSTOMERDB_MANAGER_URL: postgresql://manager:Abc123@postgres:5432/customerdb
+      OPERATIONSDB_CUSTOMER_URL: postgresql://customer:Abc123@postgres:5432/operationsdb
+      OPERATIONSDB_MANAGER_URL: postgresql://manager:Abc123@postgres:5432/operationsdb
+      CUSTOMER_API_BASE_URL: http://customer-api:8000
+      AUTH_API_BASE_URL: http://auth-api:8000
+
+volumes:
+  docker-postgre-data:
+    external: true
+  redis-cache-data:
+  qdrant-data:

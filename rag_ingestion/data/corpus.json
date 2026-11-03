@@ -1,0 +1,842 @@
+[
+  {
+    "id": "customer_support_sop.md::0",
+    "text": "# eKart Customer Support \u2014 Standard Operating Procedure  \n**Document Type:** Internal SOP\n**Effective Date:** January 1, 2026\n**Owning Team:** Customer Experience & Trust\n**Audience:** Support agents (Tier 1\u20133), team leads, quality analysts",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure",
+    "chunk_index": 0,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::1",
+    "text": "## 1. Purpose  \nThis SOP standardizes how customer support agents handle inbound contacts \u2014 chat, email, phone, and social media \u2014 across the full range of eKart customer issues. It defines channel SLAs, ticket categorization, escalation paths, and agent authority limits so that customers receive consistent resolutions regardless of which agent or channel they use.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 1. Purpose",
+    "chunk_index": 1,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::2",
+    "text": "## 2. Support Channels and Response SLAs  \n| Channel | First Response SLA | Resolution SLA |\n| :--- | :--- | :--- |\n| Live Chat | < 60 seconds | < 20 minutes (single session) |\n| In-App Help / Email | < 4 hours | < 24 hours |\n| Phone | < 2 minutes hold time | Resolved on call where possible |\n| Social Media (public mentions/DMs) | < 30 minutes | Moved to private channel (chat/email) within 1 hour |  \nSupport operates **24/7** for Live Chat and Phone in English; regional-language support is available 7:00 AM\u201311:00 PM local time in each supported market.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 2. Support Channels and Response SLAs",
+    "chunk_index": 2,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::3",
+    "text": "## 3. Ticket Categorization  \nEvery contact is logged as a ticket and tagged with one primary category, used for routing and reporting:  \n1. **Order Status** \u2014 \"Where is my order,\" delivery estimates, tracking issues.\n2. **Returns & Refunds** \u2014 return initiation, refund status, damaged/incorrect items.\n3. **Payments & Billing** \u2014 failed charges, duplicate charges, invoice requests.\n4. **Account & Access** \u2014 login issues, password resets, account recovery.\n5. **Product & Listing** \u2014 product questions, availability, seller inquiries.\n6. **Complaints & Escalations** \u2014 service complaints, repeated issues, legal/regulatory threats.\n7. **Fraud & Security** \u2014 suspected account compromise, unauthorized orders, phishing reports.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 3. Ticket Categorization",
+    "chunk_index": 3,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::4",
+    "text": "7. **Fraud & Security** \u2014 suspected account compromise, unauthorized orders, phishing reports.  \nCategory 7 (Fraud & Security) is always routed directly to the Trust & Safety queue regardless of the channel it arrived on, bypassing standard Tier 1 triage.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 3. Ticket Categorization",
+    "chunk_index": 4,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::5",
+    "text": "## 4. Tier Structure and Authority Limits  \n### Tier 1 (Frontline Agents)\n- Handle Order Status, standard Returns & Refunds (within stated policy), Account & Access, and general Product questions.\n- Authority to approve standard refunds up to **$150** without lead approval, provided the request falls within [refund_return_policy.md](refund_return_policy.md) eligibility.\n- Authority to extend a return window by up to **7 days** for a documented delivery delay (e.g., carrier delay confirmed in tracking).\n- May issue Store Credit \"goodwill\" gestures up to **$25** per customer per rolling 90 days for minor service failures (e.g., a delayed response), without needing a return.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 4. Tier Structure and Authority Limits > Tier 1 (Frontline Agents)",
+    "chunk_index": 5,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::6",
+    "text": "### Tier 2 (Senior Agents / Specialists)\n- Handle escalations from Tier 1, Payments & Billing disputes, and complex multi-order issues.\n- Authority to approve refunds up to **$750**.\n- Authority to authorize policy exceptions described in [refund_return_policy.md](refund_return_policy.md) Section 7, up to a 14-day return window extension.\n- Handle chargebacks and payment gateway disputes in coordination with the Finance team (see [financial_policies.md](financial_policies.md) Section 6).",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 4. Tier Structure and Authority Limits > Tier 2 (Senior Agents / Specialists)",
+    "chunk_index": 6,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::7",
+    "text": "### Tier 3 (Team Leads / Trust & Safety)\n- Handle Fraud & Security tickets, legal/regulatory complaints, and any request exceeding Tier 2 authority.\n- Authority to approve refunds of any amount with documented justification.\n- Sole authority to close, suspend, or reinstate customer accounts.\n- Coordinate directly with Legal for any contact that references litigation, regulatory bodies (e.g., consumer protection agencies), or data protection requests (see [legal_policies.md](legal_policies.md) Section 4).",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 4. Tier Structure and Authority Limits > Tier 3 (Team Leads / Trust & Safety)",
+    "chunk_index": 7,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::8",
+    "text": "## 5. Escalation Matrix  \n| Trigger | Escalate To | Target Response Time |\n| :--- | :--- | :--- |\n| Refund request exceeds agent's authority limit | Next tier up | Within current SLA for the channel |\n| Customer requests to speak with a manager | Team Lead (Tier 3) | < 15 minutes on live channels |\n| Customer references legal action, a lawyer, or a regulator | Tier 3 + Legal notified automatically | Immediate |\n| Suspected account takeover or unauthorized order | Trust & Safety (Tier 3) | Immediate; account temporarily locked pending review |\n| Repeat contact (3rd+ time) on the same unresolved issue | Team Lead review, regardless of category | Within 4 hours |\n| Customer reports a safety issue with a physical product | Team Lead + Product Safety team | Immediate |",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 5. Escalation Matrix",
+    "chunk_index": 8,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::9",
+    "text": "## 6. Standard Resolution Workflows  \n### 6.1 \"Where Is My Order\" (WISMO)\n1. Pull up the order in the OMS and check current status against the SLA table in [order_processing_sop.md](order_processing_sop.md) Section 10.\n2. If within SLA: share the tracking link and current carrier status; no further action needed.\n3. If SLA breached: check for an open delivery exception (Section 7 of [order_processing_sop.md](order_processing_sop.md)). Communicate the specific exception and revised estimate.\n4. If tracking shows no movement for 5+ days: initiate a carrier trace and offer the customer the choice of waiting for trace results or an immediate reshipment/refund per policy.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.1 \"Where Is My Order\" (WISMO)",
+    "chunk_index": 9,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::10",
+    "text": "### 6.2 Return / Refund Request\n1. Confirm the item and reason are eligible under [refund_return_policy.md](refund_return_policy.md).\n2. If eligible, initiate the return in the OMS on the customer's behalf (or walk them through self-service) and confirm the refund method and expected timeline per policy Section 3.\n3. If the customer disputes eligibility (e.g., past the return window due to a claimed delivery delay), verify the claim against tracking data before making a goodwill exception decision within the agent's authority tier.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.2 Return / Refund Request",
+    "chunk_index": 10,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::11",
+    "text": "### 6.3 Payment Dispute\n1. Verify the transaction in the payment gateway dashboard \u2014 confirm whether it was a single authorization, a duplicate charge, or a legitimate separate order.\n2. Duplicate/erroneous charges are refunded immediately upon confirmation; no need to wait for customer to file a bank chargeback.\n3. If the customer has already filed a chargeback with their bank, do not issue a duplicate refund \u2014 flag the ticket for Finance reconciliation (see [financial_policies.md](financial_policies.md) Section 6) and inform the customer the chargeback is being processed by their bank.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.3 Payment Dispute",
+    "chunk_index": 11,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::12",
+    "text": "### 6.4 Account Access Issues\n1. Verify identity using two of: registered email, registered phone number, last order ID, or billing zip code.\n2. Never reset a password or share account details based on identity claims alone without at least two-factor verification as above.\n3. If the account shows signs of compromise (password reset from unrecognized device, orders the customer didn't place), route immediately to Trust & Safety per Section 5 and do not attempt to resolve at Tier 1.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 6. Standard Resolution Workflows > 6.4 Account Access Issues",
+    "chunk_index": 12,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::13",
+    "text": "## 7. Quality Assurance  \n- 5% of all resolved tickets are randomly sampled weekly for QA review against this SOP.\n- QA scoring covers: accuracy of resolution, adherence to authority limits, tone/empathy, and SLA compliance.\n- Agents scoring below 85% on two consecutive QA cycles are placed on a coaching plan with their team lead.",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 7. Quality Assurance",
+    "chunk_index": 13,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::14",
+    "text": "## 8. Prohibited Agent Actions  \nAgents at any tier must **never**:\n- Promise a refund amount or timeline outside of what policy or their authority tier permits.\n- Ask a customer for their full card number, CVV, or password over any channel.\n- Process a refund to a payment method different from the original one without Tier 3 approval and identity re-verification.\n- Share another customer's order or account information, even to a caller claiming to be a family member, without that customer's own verification.\n- Close a ticket as \"Resolved\" without customer confirmation on Phone/Chat, or without a customer reply/timeout on Email (72-hour auto-close applies only after two follow-up attempts).",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 8. Prohibited Agent Actions",
+    "chunk_index": 14,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "customer_support_sop.md::15",
+    "text": "## 9. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 refund/return eligibility rules agents apply\n- [order_processing_sop.md](order_processing_sop.md) \u2014 order lifecycle and delivery exception definitions\n- [financial_policies.md](financial_policies.md) \u2014 chargeback handling and refund accounting\n- [legal_policies.md](legal_policies.md) \u2014 data protection requests and regulatory complaint handling",
+    "source_file": "customer_support_sop.md",
+    "header_path": "eKart Customer Support \u2014 Standard Operating Procedure > 9. Related Documents",
+    "chunk_index": 15,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "financial_policies.md::0",
+    "text": "# eKart Financial Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Finance & Accounting\n**Audience:** Finance, Accounting, Fulfillment Ops, Customer Support leads",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies",
+    "chunk_index": 0,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::1",
+    "text": "## 1. Purpose  \nThis document defines how eKart handles payment capture, refund accounting, chargebacks, seller payouts, and tax collection. It complements the customer-facing terms in [refund_return_policy.md](refund_return_policy.md) by describing the internal financial mechanics behind those customer commitments.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 1. Purpose",
+    "chunk_index": 1,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::2",
+    "text": "## 2. Payment Capture  \n- **Authorization vs. Capture:** For prepaid orders (card, digital wallet), payment is *authorized* at checkout but only *captured* (i.e., funds actually collected) once the order transitions to \"Processing\" in the OMS, confirming inventory availability (see [order_processing_sop.md](order_processing_sop.md) Section 3).\n- **Authorization Expiry:** Card authorizations typically expire after 7 days if not captured (varies by issuing bank). If an order remains \"On Hold\" beyond this window, the OMS automatically re-authorizes the payment method before capture; a failed re-authorization cancels the order line.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 2. Payment Capture",
+    "chunk_index": 2,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::3",
+    "text": "- **Split Shipments:** When an order splits into multiple shipments from different fulfillment centers, each shipment is captured as a separate charge against the original authorization once that specific shipment enters \"Processing\" \u2014 this ensures customers are not charged for items still delayed or unavailable.\n- **Cash on Delivery (COD):** No electronic capture occurs; the delivery carrier collects payment on eKart's behalf and remits it via the carrier's standard settlement cycle (typically T+3 business days after delivery confirmation).",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 2. Payment Capture",
+    "chunk_index": 3,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::4",
+    "text": "## 3. Sales Tax and VAT  \n- Sales tax (US) or VAT/GST (EU, UK, India, and other applicable regions) is calculated at checkout based on the shipping destination and the tax classification of each item.\n- Digital goods and services are taxed under destination-based digital-services tax rules where applicable (e.g., EU VAT MOSS-equivalent regime), which may differ from the physical-goods rate in the same region.\n- Marketplace sellers are responsible for their own tax remittance in jurisdictions where eKart is not deemed the \"marketplace facilitator\" for tax purposes; where eKart *is* the deemed facilitator (as in most US states and the EU), eKart collects and remits tax on the seller's behalf and reflects this in seller payout statements.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 3. Sales Tax and VAT",
+    "chunk_index": 4,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::5",
+    "text": "## 4. Refund Accounting  \n### 4.1 Refund Triggers and Timing\nRefunds are triggered by one of the following events, each initiating the accounting entries below:\n1. Return QC completion (\"Return Complete\" status per [order_processing_sop.md](order_processing_sop.md) Section 9).\n2. Support-approved goodwill refund or policy exception ([customer_support_sop.md](customer_support_sop.md) Section 4).\n3. Automatic system refund (order cancellation, undeliverable package, lost-in-transit resolution).",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 4. Refund Accounting > 4.1 Refund Triggers and Timing",
+    "chunk_index": 5,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::6",
+    "text": "### 4.2 Accounting Treatment\n- A refund reverses the original revenue recognition entry for the returned item(s), including the proportional tax collected, and is booked as a **contra-revenue** entry (Sales Returns and Allowances) rather than a new expense.\n- Shipping charges are refunded only when the return reason is attributable to eKart or the seller (damaged, defective, wrong item, delivery failure); customer-initiated \"no longer needed\" returns do not refund original shipping charges, consistent with [refund_return_policy.md](refund_return_policy.md).\n- Restocking fees deducted per policy are recognized as fee revenue at the time the partial refund is issued, not netted silently against the refund line \u2014 this preserves an auditable record of the fee.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 4. Refund Accounting > 4.2 Accounting Treatment",
+    "chunk_index": 6,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::7",
+    "text": "### 4.3 Refund Method Reconciliation\n| Refund Method | Settlement Path | Reconciliation Frequency |\n| :--- | :--- | :--- |\n| Original card/wallet | Payment gateway API; matched against original transaction ID | Daily |\n| eKart Store Credit | Internal ledger only; no external settlement | Real-time |\n| Bank transfer (COD refunds) | Batch file to banking partner | Weekly |",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 4. Refund Accounting > 4.3 Refund Method Reconciliation",
+    "chunk_index": 7,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::8",
+    "text": "## 5. Seller Payouts  \n- Marketplace sellers are paid out on a **rolling 14-day cycle**: funds from a delivered order become eligible for payout 14 days after delivery confirmation, provided no return or dispute is open against that order.\n- If a return or chargeback is initiated **after** a seller has already been paid out for that order, the refunded/disputed amount is deducted from the seller's next payout cycle rather than requiring the seller to remit funds separately.\n- Sellers with a chargeback rate exceeding **1%** of monthly transaction volume are moved to a 30-day payout cycle and subject to a compliance review.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 5. Seller Payouts",
+    "chunk_index": 8,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::9",
+    "text": "## 6. Chargebacks and Payment Disputes  \n### 6.1 Definition\nA chargeback occurs when a customer disputes a charge directly with their card issuer or bank rather than (or in addition to) contacting eKart support.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 6. Chargebacks and Payment Disputes > 6.1 Definition",
+    "chunk_index": 9,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::10",
+    "text": "### 6.2 Process\n1. The payment gateway notifies eKart's Finance team of an incoming chargeback, including the reason code (e.g., \"goods not received,\" \"unauthorized transaction,\" \"goods not as described\").\n2. Finance cross-references the order status, delivery confirmation, and any existing support ticket for that order.\n3. If eKart has strong compelling evidence (delivery confirmation with signature, prior support resolution already refunding the customer, etc.), Finance submits a dispute representment to the card network within the issuer's deadline (typically 7\u201321 days depending on network).\n4. If no compelling evidence exists or the claim is valid (e.g., item genuinely not delivered), the chargeback is accepted and no representment is filed.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 6. Chargebacks and Payment Disputes > 6.2 Process",
+    "chunk_index": 10,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::11",
+    "text": "5. **Double-refund prevention:** Support agents must check for an open chargeback (visible in the OMS as a \"Payment Disputed\" flag) before issuing any refund on that order \u2014 see [customer_support_sop.md](customer_support_sop.md) Section 6.3.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 6. Chargebacks and Payment Disputes > 6.2 Process",
+    "chunk_index": 11,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::12",
+    "text": "### 6.3 Chargeback Fees\n- Card networks charge eKart a fee (typically $15\u2013$25) per chargeback regardless of outcome. This fee is absorbed by eKart for eKart-fulfilled orders and deducted from the seller's payout for seller-fulfilled orders where the chargeback reason is seller-attributable (e.g., item not as described).",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 6. Chargebacks and Payment Disputes > 6.3 Chargeback Fees",
+    "chunk_index": 12,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::13",
+    "text": "## 7. Store Credit Liability  \n- Issued Store Credit is recorded as a financial liability (deferred revenue) on eKart's balance sheet until redeemed or, where legally permitted, escheated as unclaimed property after the statutory dormancy period (varies by US state, typically 3\u20135 years; Store Credit does not expire per customer-facing policy, but unclaimed-property law may still require escheatment reporting).\n- Promotional Store Credit (issued as a marketing incentive rather than a refund) is tracked separately from refund-issued Store Credit for revenue-recognition purposes, since promotional credit redemption is booked as a discount against revenue rather than a liability settlement.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 7. Store Credit Liability",
+    "chunk_index": 13,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::14",
+    "text": "## 8. Financial Controls and Audit  \n- All refunds above **$1,000** require a second Finance approver before disbursement, regardless of which support tier initiated the request.\n- Monthly reconciliation compares OMS-recorded refunds against actual payment gateway/bank settlement records; discrepancies beyond a $500 aggregate threshold are investigated within 5 business days.\n- Transaction and refund records are retained for **7 years** per [legal_policies.md](legal_policies.md) Section 4.3 to satisfy tax audit requirements.",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 8. Financial Controls and Audit",
+    "chunk_index": 14,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "financial_policies.md::15",
+    "text": "## 9. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 customer-facing refund terms and timelines\n- [order_processing_sop.md](order_processing_sop.md) \u2014 order and returns lifecycle that triggers financial events\n- [customer_support_sop.md](customer_support_sop.md) \u2014 agent refund authority limits\n- [legal_policies.md](legal_policies.md) \u2014 tax, retention, and regulatory obligations",
+    "source_file": "financial_policies.md",
+    "header_path": "eKart Financial Policies > 9. Related Documents",
+    "chunk_index": 15,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::0",
+    "text": "# eKart Legal Policies  \n**Document Type:** Internal Policy Reference\n**Effective Date:** January 1, 2026\n**Owning Team:** Legal & Compliance\n**Audience:** All employees; customer-facing teams in particular  \n> This document summarizes eKart's legal obligations and internal policy positions relating to customer transactions, data privacy, and marketplace conduct. It is a reference for internal decision-making and does not itself constitute the full legal terms shown to customers (see the public Terms of Service and Privacy Policy for the customer-facing versions).",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies",
+    "chunk_index": 0,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::1",
+    "text": "## 1. Consumer Rights by Region  \neKart operates across multiple regulatory jurisdictions and honors the *stricter* of internal policy or local statutory requirements in each region.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 1. Consumer Rights by Region",
+    "chunk_index": 1,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::2",
+    "text": "### 1.1 European Union / United Kingdom\n- Under the EU Consumer Rights Directive and equivalent UK regulation, customers have a **statutory 14-day cooling-off period** from delivery to cancel most online purchases for any reason, separate from and in addition to eKart's standard return window in [refund_return_policy.md](refund_return_policy.md).\n- Digital content is exempt from the cooling-off right once the customer has begun downloading/streaming and has explicitly acknowledged loss of the cancellation right at checkout.\n- Refunds for statutory cancellations must be issued within **14 days** of eKart receiving the returned goods (or proof of return shipment, if earlier).",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.1 European Union / United Kingdom",
+    "chunk_index": 2,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::3",
+    "text": "### 1.2 United States\n- No federal statutory cooling-off period applies to standard e-commerce purchases (the FTC's 3-day cooling-off rule applies only to certain door-to-door sales, which does not apply to eKart).\n- State-level rules may impose additional requirements on gift card expiration (most states prohibit expiration under 5 years) and on restocking fees (several states require restocking fees to be disclosed at time of sale, which eKart does via the category table in [refund_return_policy.md](refund_return_policy.md) Section 2.2).",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.2 United States",
+    "chunk_index": 3,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::4",
+    "text": "### 1.3 India\n- Under the Consumer Protection (E-Commerce) Rules, eKart must display country of origin, seller details (for marketplace items), and a grievance redressal mechanism on every listing.\n- A Grievance Officer is designated per the Rules; unresolved complaints escalated to Tier 3 Support (see [customer_support_sop.md](customer_support_sop.md) Section 4) that remain open beyond **30 days** are automatically routed to the Grievance Officer.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.3 India",
+    "chunk_index": 4,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::5",
+    "text": "### 1.4 General Principle\nWhere a region's statutory consumer protection right is more generous to the customer than eKart's standard policy (longer return window, broader refund rights, etc.), the statutory right governs for customers in that region. Support agents should consult the region-specific override table maintained by Legal (linked from the internal policy portal) when a customer cites local law that appears to conflict with standard policy.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 1. Consumer Rights by Region > 1.4 General Principle",
+    "chunk_index": 5,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::6",
+    "text": "## 2. Terms of Service \u2014 Key Provisions  \n- **Account Eligibility:** Users must be 18 years or older, or the age of majority in their jurisdiction, to create an eKart account and transact independently.\n- **Prohibited Use:** Reselling purchased goods at scale without a registered seller account, using automated bots to purchase limited-inventory items, and submitting fraudulent return claims are all grounds for account suspension under the Terms of Service.\n- **Marketplace Seller Agreement:** Third-party sellers are independently bound by the Seller Agreement, which requires accurate listings, compliance with applicable product safety regulations, and honoring at minimum eKart's baseline return policy unless a stricter category exception applies.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 2. Terms of Service \u2014 Key Provisions",
+    "chunk_index": 6,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::7",
+    "text": "- **Limitation of Liability:** eKart's liability for any single order is capped at the order's purchase price, except where prohibited by local law (e.g., liability for gross negligence or bodily injury from a defective product cannot be capped).",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 2. Terms of Service \u2014 Key Provisions",
+    "chunk_index": 7,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::8",
+    "text": "## 3. Product Safety and Recalls  \n- Any product subject to a manufacturer or regulatory recall is immediately delisted from the marketplace and removed from sellable inventory across all fulfillment centers.\n- Customers who purchased a recalled item within the recall's applicable window are proactively notified via email and in-app notification, with instructions for a no-cost return and full refund regardless of the item's original return window or \"Final Sale\" status.\n- Support agents handling a customer-reported safety issue (e.g., a product malfunction causing injury) must escalate to Tier 3 + Product Safety per [customer_support_sop.md](customer_support_sop.md) Section 5 rather than treating it as a standard return.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 3. Product Safety and Recalls",
+    "chunk_index": 8,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::9",
+    "text": "## 4. Data Protection and Privacy  \n### 4.1 Data Subject Rights\nCustomers in jurisdictions covered by GDPR, UK GDPR, CCPA/CPRA, or comparable frameworks may request:\n- **Access** to the personal data eKart holds about them.\n- **Correction** of inaccurate personal data.\n- **Deletion** of their personal data, subject to legal retention requirements (e.g., transaction records required for tax/audit purposes are retained per Section 4.3 even after a deletion request).\n- **Portability** of their data in a machine-readable format.\n- **Opt-out** of the sale/sharing of personal data for targeted advertising (CCPA/CPRA).",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 4. Data Protection and Privacy > 4.1 Data Subject Rights",
+    "chunk_index": 9,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::10",
+    "text": "### 4.2 Handling Data Subject Requests\n- All data subject requests must be routed to the Privacy team via the internal Privacy Request queue, regardless of which channel they arrive through.\n- Support agents must **never** attempt to fulfill a data deletion or access request directly \u2014 verify the customer's identity, log the request, and route it to Privacy within 24 hours.\n- eKart must respond to verified data subject requests within **30 days** (extendable by 30 days for complex requests, with notice to the customer) under GDPR/UK GDPR, and within **45 days** under CCPA/CPRA.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 4. Data Protection and Privacy > 4.2 Handling Data Subject Requests",
+    "chunk_index": 10,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::11",
+    "text": "### 4.3 Data Retention\n- Order and transaction records are retained for **7 years** to satisfy tax and financial audit obligations, even where a customer has requested account deletion.\n- Marketing consent and preference data is retained only while the consent remains active; withdrawal of consent halts marketing use immediately, though transactional (order-related) communications continue as necessary to service the order.\n- Support ticket transcripts are retained for **3 years** for quality assurance and dispute-resolution purposes.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 4. Data Protection and Privacy > 4.3 Data Retention",
+    "chunk_index": 11,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::12",
+    "text": "## 5. Marketplace Seller Compliance  \n- Sellers must not list counterfeit, stolen, or otherwise unlawful goods; violations result in immediate delisting and, for repeat or egregious violations, permanent removal from the marketplace and referral to law enforcement where required.\n- Sellers are contractually required to honor advertised shipping timelines; a pattern of missed timelines (more than 10% of orders in a rolling 30-day window) triggers a seller performance review and possible suspension.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 5. Marketplace Seller Compliance",
+    "chunk_index": 12,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::13",
+    "text": "- Intellectual property complaints (e.g., a brand owner reporting a counterfeit listing) are handled under eKart's notice-and-takedown process: the listing is suspended pending review within 24 hours of a valid complaint, and the seller is given 5 business days to respond before permanent removal.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 5. Marketplace Seller Compliance",
+    "chunk_index": 13,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::14",
+    "text": "## 6. Regulatory and Litigation Holds  \n- Any employee who receives a subpoena, litigation hold notice, or regulatory inquiry directed at eKart must forward it unopened/unanswered to Legal within 24 hours and must not independently respond to the requesting party.\n- Once Legal issues a litigation hold notice for a specific customer, order, or data set, the relevant records are exempted from standard retention/deletion schedules until the hold is lifted, regardless of any pending customer deletion request.",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 6. Regulatory and Litigation Holds",
+    "chunk_index": 14,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "legal_policies.md::15",
+    "text": "## 7. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 customer-facing return terms referenced by regional consumer rights above\n- [customer_support_sop.md](customer_support_sop.md) \u2014 escalation paths for legal/regulatory/safety contacts\n- [financial_policies.md](financial_policies.md) \u2014 tax and financial record retention supporting Section 4.3",
+    "source_file": "legal_policies.md",
+    "header_path": "eKart Legal Policies > 7. Related Documents",
+    "chunk_index": 15,
+    "allowed_roles": [
+      "manager"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::0",
+    "text": "# eKart Order Processing \u2014 Standard Operating Procedure  \n**Document Type:** Internal SOP\n**Effective Date:** January 1, 2026\n**Owning Team:** Fulfillment Operations\n**Audience:** Fulfillment center staff, warehouse managers, operations analysts",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure",
+    "chunk_index": 0,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::1",
+    "text": "## 1. Purpose  \nThis SOP defines the end-to-end lifecycle of an order from the moment it is placed to the moment it is delivered (or returned), including the handoffs between the order management system, warehouse management system (WMS), and carrier network. It exists to ensure consistent handling, accurate status tracking, and predictable SLAs across all fulfillment centers (FCs).",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 1. Purpose",
+    "chunk_index": 1,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::2",
+    "text": "## 2. Order Lifecycle Overview  \nEvery order progresses through the following statuses, in order. An order may branch into \"On Hold,\" \"Cancelled,\" or \"Returned\" from most stages.  \n```\nPlaced \u2192 Payment Confirmed \u2192 Processing \u2192 Picked \u2192 Packed \u2192 Shipped \u2192 Out for Delivery \u2192 Delivered\n```",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 2. Order Lifecycle Overview",
+    "chunk_index": 2,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::3",
+    "text": "### 2.1 Status Definitions\n| Status | Definition | Typical Duration |\n| :--- | :--- | :--- |\n| Placed | Customer has submitted the order; not yet payment-verified. | < 1 minute |\n| Payment Confirmed | Payment gateway has authorized/captured funds (or COD order validated). | < 5 minutes |\n| Processing | Order allocated to a fulfillment center and queued for picking. | 1\u20134 hours |\n| Picked | Warehouse staff have physically retrieved all items for the order. | Same day as Processing |\n| Packed | Items boxed, labeled, and staged for carrier pickup. | Within 4 hours of Picked |\n| Shipped | Carrier has scanned the package into their network. | \u2014 |\n| Out for Delivery | Package is on a delivery vehicle for final-mile delivery. | Final day of transit |",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 2. Order Lifecycle Overview > 2.1 Status Definitions",
+    "chunk_index": 3,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::4",
+    "text": "| Delivered | Carrier confirms handoff to customer (signature, photo, or doorstep drop per delivery preference). | \u2014 |",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 2. Order Lifecycle Overview > 2.1 Status Definitions",
+    "chunk_index": 4,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::5",
+    "text": "## 3. Order Intake and Payment Verification  \n1. Order is received by the Order Management System (OMS) and assigned a unique Order ID.\n2. OMS performs an automated fraud-risk check (velocity checks, mismatched billing/shipping address flags, high-value first-time-buyer flags).\n- **Low risk:** proceeds automatically to payment capture.\n- **Medium risk:** routed to the Trust & Safety queue for manual review within 2 hours.\n- **High risk:** order automatically placed \"On Hold\" and customer is notified that additional verification is required.\n3. For prepaid orders, payment is authorized at order placement and **captured** only when the order moves to \"Processing\" (i.e., inventory is confirmed available).",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 3. Order Intake and Payment Verification",
+    "chunk_index": 5,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::6",
+    "text": "4. For Cash on Delivery (COD) orders, a soft address/phone verification is performed; COD is disabled automatically for accounts with more than 2 refused COD deliveries in the trailing 90 days.",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 3. Order Intake and Payment Verification",
+    "chunk_index": 6,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::7",
+    "text": "## 4. Inventory Allocation  \n- The OMS allocates each order line to the nearest fulfillment center carrying sufficient stock, factoring in delivery SLA promised at checkout.\n- If an item is out of stock at the nearest FC but available at a secondary FC within the same delivery region, the order is split into multiple shipments and the customer is notified of a multi-package delivery.\n- If an item cannot be sourced from any FC within 24 hours, the order line is automatically cancelled, the customer is notified, and any captured payment for that line is refunded per [financial_policies.md](financial_policies.md) Section 4.",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 4. Inventory Allocation",
+    "chunk_index": 7,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::8",
+    "text": "## 5. Picking and Packing  \n### 5.1 Picking\n- Pick lists are batched by warehouse zone to minimize walk time; standard target is 95% of pick lists completed within 4 hours of order allocation.\n- Pickers scan each item's barcode against the pick list on their handheld device; a mismatch triggers an immediate exception flag and removes the item from that pick run.",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 5. Picking and Packing > 5.1 Picking",
+    "chunk_index": 8,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::9",
+    "text": "### 5.2 Packing\n- Packing stations verify item count and condition against the packing slip before sealing.\n- Fragile and electronics items require an additional layer of protective packaging per the FC's packing matrix.\n- Multi-item orders are consolidated into a single package where size/weight allows; oversized or hazardous items ship separately by default.\n- Each package receives a shipping label with a carrier tracking number, which is written back to the OMS and immediately visible to the customer in \"My Orders.\"",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 5. Picking and Packing > 5.2 Packing",
+    "chunk_index": 9,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::10",
+    "text": "## 6. Carrier Handoff and Shipping  \n- Packed orders are staged in the outbound dock and manifested to the assigned carrier by the FC's scheduled daily cutoff time (varies by FC, typically 6:00 PM local time).\n- Orders packed after the daily cutoff roll to the next carrier pickup window; this is reflected in the customer-facing delivery estimate at checkout, so it does not constitute a delay.\n- Carrier selection is determined automatically based on package weight/dimensions, delivery distance, and the delivery speed tier the customer selected (Standard, Express, Same-Day where available).",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 6. Carrier Handoff and Shipping",
+    "chunk_index": 10,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::11",
+    "text": "## 7. Delivery Exceptions  \n| Exception | Standard Handling |\n| :--- | :--- |\n| Failed delivery attempt (customer unavailable) | Carrier attempts up to 2 additional deliveries on the following business days; customer is notified via app/email/SMS after each attempt. |\n| Address undeliverable | Package is held at the carrier's local facility for 5 business days pending customer correction of address; if uncorrected, package is returned to the originating FC and the order is refunded minus original shipping cost. |\n| Package lost in transit | If a package shows no tracking movement for 5 consecutive days, Fulfillment Ops opens a carrier trace request. If unresolved after 3 business days, the order is treated as lost: customer is offered a full refund or a reshipment at no charge. |",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 7. Delivery Exceptions",
+    "chunk_index": 11,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::12",
+    "text": "| Damaged in transit | Customer-reported transit damage follows the process in [refund_return_policy.md](refund_return_policy.md) Section 2.4; Fulfillment Ops separately files a carrier damage claim for internal cost recovery. |\n| Wrong item shipped | Immediate replacement order is created at no cost, and a prepaid return label is issued for the incorrect item; no need to wait for the incorrect item's return before the replacement ships. |",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 7. Delivery Exceptions",
+    "chunk_index": 12,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::13",
+    "text": "## 8. Order Cancellations (Operations View)  \n- Cancellations submitted by the customer before \"Processing\" begins are handled entirely within OMS with no warehouse involvement \u2014 inventory is simply released back to available stock.\n- Cancellations submitted after \"Picked\" but before \"Shipped\" require warehouse staff to intercept the package at the pack station and return the items to shelf stock; this is logged as an \"Intercepted Cancellation\" for inventory audit purposes.\n- Cancellations cannot be processed once an order reaches \"Shipped\" \u2014 the order must instead follow the return process in [refund_return_policy.md](refund_return_policy.md).",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 8. Order Cancellations (Operations View)",
+    "chunk_index": 13,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::14",
+    "text": "## 9. Returns Intake at the Fulfillment Center  \n1. Returned packages are received at the FC's dedicated returns dock and scanned against the return authorization created by the customer (see [refund_return_policy.md](refund_return_policy.md) Section 4).\n2. Quality Control (QC) inspects the item against the stated return reason within 2 business days of receipt:\n- **Resalable condition:** item is restocked to available inventory.\n- **Damaged/used beyond resale:** item is routed to the liquidation/write-off pipeline; a partial refund may be applied per policy.\n- **Item does not match what was shipped back (fraud signal):** flagged to Trust & Safety and refund is held pending investigation.",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 9. Returns Intake at the Fulfillment Center",
+    "chunk_index": 14,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::15",
+    "text": "3. Once QC clears the return, the OMS is updated to \"Return Complete,\" which triggers the refund workflow described in [financial_policies.md](financial_policies.md) Section 4.",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 9. Returns Intake at the Fulfillment Center",
+    "chunk_index": 15,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::16",
+    "text": "## 10. Service Level Agreements (SLAs)  \n| Metric | Target |\n| :--- | :--- |\n| Order \u2192 Processing | < 4 hours (99th percentile) |\n| Processing \u2192 Shipped | < 24 hours (95th percentile) |\n| Standard delivery (Shipped \u2192 Delivered) | 3\u20135 business days |\n| Express delivery (Shipped \u2192 Delivered) | 1\u20132 business days |\n| Return receipt \u2192 QC inspection complete | < 2 business days |\n| QC complete \u2192 Refund initiated | < 1 business day |",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 10. Service Level Agreements (SLAs)",
+    "chunk_index": 16,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::17",
+    "text": "## 11. Escalation  \nAny order stuck in a single status for longer than 2x its target SLA is automatically flagged in the Fulfillment Ops dashboard and assigned to a shift lead for manual investigation. Repeated SLA breaches at a given FC (more than 5% of daily volume in a week) trigger a formal review with that FC's operations manager.",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 11. Escalation",
+    "chunk_index": 17,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "order_processing_sop.md::18",
+    "text": "## 12. Related Documents\n- [refund_return_policy.md](refund_return_policy.md) \u2014 customer-facing return eligibility and refund terms\n- [customer_support_sop.md](customer_support_sop.md) \u2014 how support agents interact with order status on the customer's behalf\n- [financial_policies.md](financial_policies.md) \u2014 payment capture, refund accounting, and reconciliation",
+    "source_file": "order_processing_sop.md",
+    "header_path": "eKart Order Processing \u2014 Standard Operating Procedure > 12. Related Documents",
+    "chunk_index": 18,
+    "allowed_roles": [
+      "worker"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::0",
+    "text": "# eKart Refund & Return Policy  \n**Effective Date:** January 1, 2026\n**Applies To:** All purchases made through the eKart marketplace (web and mobile app)\n**Owning Team:** Customer Experience & Trust",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy",
+    "chunk_index": 0,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::1",
+    "text": "## 1. Purpose  \nThis policy defines the conditions, timelines, and process by which customers may return purchased items and receive refunds. It applies to all product categories sold and fulfilled by eKart, as well as items sold by third-party marketplace sellers who use eKart's fulfillment and payment infrastructure.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 1. Purpose",
+    "chunk_index": 1,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::2",
+    "text": "## 2. Eligibility for Returns  \n### 2.1 General Return Window\n- Most items may be returned within **30 calendar days** of the delivery date shown on the order's tracking record.\n- The return window begins on the date the carrier marks the shipment as \"Delivered,\" not the order date.\n- Items must be returned in their original condition: unused, unworn, and with all original tags, packaging, and included accessories.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 2. Eligibility for Returns > 2.1 General Return Window",
+    "chunk_index": 2,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::3",
+    "text": "### 2.2 Category-Specific Windows\n| Category | Return Window | Notes |\n| :--- | :--- | :--- |\n| Electronics & Appliances | 15 days | Must include all original accessories, cables, and manuals. A 15% restocking fee applies if packaging is opened but the item is otherwise undamaged. |\n| Apparel & Footwear | 30 days | Tags must be attached; footwear must show no signs of outdoor wear. |\n| Books & Media | 14 days | Must be free of writing, highlighting, or damage. Digital media (e-books, downloadable software) is non-returnable once accessed. |\n| Furniture & Large Items | 30 days | Customer is responsible for return shipping unless the item arrived damaged or defective. Original packaging strongly recommended to avoid damage-in-transit disputes. |",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 2. Eligibility for Returns > 2.2 Category-Specific Windows",
+    "chunk_index": 3,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::4",
+    "text": "| Perishable Goods (groceries, flowers) | Not eligible | See Section 2.4 for damaged/spoiled exceptions. |\n| Personal Care & Beauty | 14 days | Must be unopened and factory-sealed for hygiene reasons. |\n| Gift Cards & Digital Vouchers | Not eligible | Non-refundable and non-returnable except where required by local law. |\n| Custom or Personalized Items | Not eligible | Unless the item arrives defective or does not match the customization request. |",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 2. Eligibility for Returns > 2.2 Category-Specific Windows",
+    "chunk_index": 4,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::5",
+    "text": "### 2.3 Non-Returnable Items\nThe following are not eligible for return under any circumstances other than being received damaged, defective, or materially different from the listing:\n- Items marked \"Final Sale\" or \"Clearance\" at the time of purchase\n- Opened personal care, cosmetics, or hygiene products\n- Digital downloads, activated software licenses, and streaming credits\n- Perishable food and floral arrangements\n- Gift cards, prepaid cards, and promotional vouchers",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 2. Eligibility for Returns > 2.3 Non-Returnable Items",
+    "chunk_index": 5,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::6",
+    "text": "### 2.4 Damaged, Defective, or Incorrect Items\nIf an item arrives damaged, defective, or different from what was ordered, the customer may request a return or replacement within **48 hours of delivery**, regardless of the item's normal category window. Photo evidence of the damage or discrepancy is required and may be uploaded directly through the order details page. This exception applies even to items listed as \"Final Sale\" or otherwise non-returnable.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 2. Eligibility for Returns > 2.4 Damaged, Defective, or Incorrect Items",
+    "chunk_index": 6,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::7",
+    "text": "## 3. Refund Methods and Timelines  \n### 3.1 Refund to Original Payment Method\n- Refunds are issued to the original payment method used at checkout (credit/debit card, digital wallet, or eKart Store Credit).\n- Once a returned item is received and inspected at an eKart fulfillment center, refunds are processed within **3\u20135 business days**.\n- Depending on the issuing bank, funds may take an additional **5\u201310 business days** to appear on the customer's statement.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 3. Refund Methods and Timelines > 3.1 Refund to Original Payment Method",
+    "chunk_index": 7,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::8",
+    "text": "### 3.2 eKart Store Credit\n- Customers may opt to receive a refund as eKart Store Credit instead of a refund to their original payment method.\n- Store Credit refunds are processed within **1 business day** of the returned item being received and are typically faster than card refunds.\n- Store Credit issued as a refund does not expire and can be combined with promotional discounts on future orders.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 3. Refund Methods and Timelines > 3.2 eKart Store Credit",
+    "chunk_index": 8,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::9",
+    "text": "### 3.3 Cash on Delivery (COD) Orders\n- Since no card or wallet was charged, COD order refunds are issued as eKart Store Credit by default.\n- Customers may request a bank transfer refund instead by providing valid bank account details through the returns portal; bank transfer refunds take **7\u201310 business days** to process.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 3. Refund Methods and Timelines > 3.3 Cash on Delivery (COD) Orders",
+    "chunk_index": 9,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::10",
+    "text": "### 3.4 Partial Refunds\nPartial refunds may be issued (rather than a full refund) in the following situations:\n- The item is returned without original packaging, tags, or accessories (restocking fee deducted per Section 2.2).\n- The item shows signs of use beyond inspection/try-on.\n- Only part of a multi-item bundle or set is returned.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 3. Refund Methods and Timelines > 3.4 Partial Refunds",
+    "chunk_index": 10,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::11",
+    "text": "## 4. Return Process  \n1. **Initiate the Return:** Customer opens the order in \"My Orders,\" selects the item(s), and selects \"Return or Replace Item.\"\n2. **Select Reason:** Customer selects a return reason (e.g., \"No longer needed,\" \"Wrong item received,\" \"Item defective\") and, if applicable, uploads photos.\n3. **Choose Resolution:** Customer selects refund to original payment method, Store Credit, or (where eligible) a replacement item.\n4. **Print Label / Schedule Pickup:** eKart generates a prepaid return shipping label for damaged/defective/incorrect items at no cost. For change-of-mind returns on Furniture & Large Items, the customer is shown the estimated return shipping cost before confirming.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 4. Return Process",
+    "chunk_index": 11,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::12",
+    "text": "5. **Ship or Hand Off:** Customer drops the package at a designated carrier location or schedules a doorstep pickup, where available.\n6. **Inspection:** Once received, the eKart fulfillment center inspects the item within 2 business days.\n7. **Refund/Replacement Issued:** Refund or replacement is initiated per Section 3 once inspection confirms the item meets return eligibility.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 4. Return Process",
+    "chunk_index": 12,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::13",
+    "text": "## 5. Order Cancellations  \n- Orders can be cancelled free of charge any time **before** the order status changes to \"Shipped.\"\n- Once an order has shipped, it cannot be cancelled; the customer must wait for delivery and then initiate a standard return.\n- Orders for custom/personalized items can only be cancelled within **1 hour** of placement, after which production begins and the order is locked.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 5. Order Cancellations",
+    "chunk_index": 13,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::14",
+    "text": "## 6. Marketplace Seller Items  \nItems sold by third-party sellers but fulfilled through \"eKart Fulfillment\" follow this same policy in full. Items that are sold **and** shipped directly by a third-party seller (marked \"Sold by [Seller Name], Ships from Seller\") may have seller-specific return windows and conditions, which are displayed on the product listing page prior to purchase. eKart's Customer Support team mediates disputes for marketplace orders where a seller does not honor their stated return policy.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 6. Marketplace Seller Items",
+    "chunk_index": 14,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::15",
+    "text": "## 7. Policy Exceptions  \nCustomer Support Leads and above may authorize a one-time policy exception (e.g., extending a return window by up to 14 days) for high-value customers or extenuating circumstances (documented illness, natural disaster affecting delivery region, etc.). Exceptions must be logged in the support ticket with a reason code. See [customer_support_sop.md](customer_support_sop.md) Section 5 for escalation authority levels.",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 7. Policy Exceptions",
+    "chunk_index": 15,
+    "allowed_roles": [
+      "customer"
+    ]
+  },
+  {
+    "id": "refund_return_policy.md::16",
+    "text": "## 8. Related Documents\n- [order_processing_sop.md](order_processing_sop.md) \u2014 how returns are received and processed at fulfillment centers\n- [customer_support_sop.md](customer_support_sop.md) \u2014 agent workflow for handling return/refund requests\n- [financial_policies.md](financial_policies.md) \u2014 refund accounting treatment and reconciliation\n- [legal_policies.md](legal_policies.md) \u2014 statutory return rights by region",
+    "source_file": "refund_return_policy.md",
+    "header_path": "eKart Refund & Return Policy > 8. Related Documents",
+    "chunk_index": 16,
+    "allowed_roles": [
+      "customer"
+    ]
+  }
+]

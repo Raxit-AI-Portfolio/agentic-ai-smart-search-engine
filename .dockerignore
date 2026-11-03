@@ -1,0 +1,21 @@
+.git
+.venv
+venv
+__pycache__
+*.pyc
+.env
+.pytest_cache
+.mypy_cache
+.ruff_cache
+front-end
+agentic_core
+# shared-api's Dockerfile needs these two (ROLE_PERMISSIONS_DELTA + package
+# init) even though the rest of agentic_core is excluded from build contexts.
+!agentic_core/__init__.py
+!agentic_core/models
+!agentic_core/models/**
+tests
+output
+project-notes
+scripts
+*.md
